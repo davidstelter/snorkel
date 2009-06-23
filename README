@@ -1,0 +1,5 @@
+snorkel aims to be a web-based frontend to the Snort IDS, not entirely
+dissimilar to Acid/Base. Notable differences include implementation in
+Ruby/Rails, and changes in how alerts are sorted and categorized.
+
+Despite strong temptation, the project is NOT titled "porksnorkel".
