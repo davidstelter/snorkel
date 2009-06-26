@@ -7,4 +7,10 @@ class Signature < ActiveRecord::Base
   has_many   :events,
              :class_name  => "Event",
              :foreign_key => "signature"
+  has_many   :sig_references,
+             :class_name  => "SigReference",
+             :foreign_key => "sig_id"
+  has_many   :references,
+             :through     => :sig_references,
+             :source      => :reference
 end
