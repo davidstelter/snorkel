@@ -8,7 +8,8 @@ class Event < ActiveRecord::Base
   belongs_to :sensor,
              :class_name  => "Sensor",
              :foreign_key => "sid"
-  has_many   :iphdrs, 
+#TODO: make sure this is really has_one!
+  has_one    :iphdr, 
              :class_name  => "Iphdr", 
              :foreign_key => [:sid, :cid]
 end
