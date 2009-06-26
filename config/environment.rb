@@ -40,4 +40,4 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :de
 end
 
-require 'composite_primary_key'
+require 'composite_primary_keys'
