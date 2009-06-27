@@ -1,0 +1,19 @@
+.body {
+    font-size: smaller;
+}
+
+
+.num-cell {
+    text-align: right;
+}
+
+#sig-table {
+    border: solid 1px;
+    border-color: gray;
+    border-collapse: collapse;
+}
+
+#sig-table td, th{
+    border: solid 1px;
+    border-color: gray;
+}

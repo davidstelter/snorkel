@@ -1,0 +1,19 @@
+    <p>Signatures:</p>
+    <table id="sig-table">
+        <tr>
+            <th>sig</th>
+            <th>cls</th>
+            <th>pri</th>
+            <th>name</th>
+            <th>count</th>
+        </tr>
+        <% for sig in @signatures %>
+        <tr>
+            <td class="num-cell"><%=h sig.sig_id %></td>
+            <td class="num-cell"><%=h (sig.sig_class_id || "-")%></td>
+            <td class="num-cell"><%=h (sig.sig_priority || "-")%></td>
+            <td><%=h sig.sig_name %></td>
+            <td class="num-cell"><%=h sig.events.count %></td> 
+        </tr>
+    <% end %>
+    </table>

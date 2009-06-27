@@ -1,0 +1,35 @@
+<html>
+<head>
+    <title>Snorkel: Snort NIDS Console</title>
+    <%= stylesheet_link_tag "snorkel", :media => "all" %>
+</head>
+<body id="console">
+<div id="columns">
+    <div id="stats">
+        <table>
+            <th>Totals</th>
+            <tr>
+                <td>Signatures</td>
+                <td class="num-cell"><%=h sig_count %></td>
+            </tr>
+            <tr>
+                <td>Events</td>
+                <td class="num-cell"><%=h event_count %></td>
+            </tr>
+            <tr>
+                <td>Source IPs</td>
+                <td class="num-cell"><%=h src_ip_count %></td>
+            </tr>
+            <tr>
+                <td>Dest IPs</td>
+                <td class="num-cell"><%=h dst_ip_count %></td>
+            </tr>
+        </table>
+    </div>
+    <div id="main">
+        <%= yield :layout %>
+    </div>
+</div>
+</body>
+</html>
+
