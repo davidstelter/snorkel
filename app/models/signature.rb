@@ -13,4 +13,12 @@ class Signature < ActiveRecord::Base
   has_many   :references,
              :through     => :sig_references,
              :source      => :reference
+
+  def class_name
+    if self.sig_class
+      self.sig_class.sig_class_name
+    else
+      'Unclassified'
+    end
+  end
 end

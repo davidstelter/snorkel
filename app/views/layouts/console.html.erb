@@ -2,6 +2,7 @@
 <head>
     <title>Snorkel: Snort NIDS Console</title>
     <%= stylesheet_link_tag "snorkel", :media => "all" %>
+    <%= javascript_include_tag :defaults %>
 </head>
 <body id="console">
 <div id="columns">
@@ -9,12 +10,12 @@
         <table>
             <th>Totals</th>
             <tr>
-                <td>Signatures</td>
-                <td class="num-cell"><%=h sig_count %></td>
+                <td>Alerts</td>
+                <td class="num-cell"><%=h event_count %></td>
             </tr>
             <tr>
-                <td>Events</td>
-                <td class="num-cell"><%=h event_count %></td>
+                <td>Signatures</td>
+                <td class="num-cell"><%=h sig_count %></td>
             </tr>
             <tr>
                 <td>Source IPs</td>
@@ -26,8 +27,22 @@
             </tr>
         </table>
     </div>
+    <div id="cons-ctl-bar">
+        <table>
+            <tr>
+                <th>Views</th>
+            </tr>
+            <tr>
+                <td id="view-sig-btn" class="btn" onclick="<%= remote_function( :url => { :action => 'signatures' }) %>">Signatures</td>
+                </tr>
+            <tr>
+                <td id="view-alert-btn" class="btn" onclick="<%= remote_function( :url => { :action => 'alerts' }) %>">Alerts</td>
+            </tr>
+        </tr>
+    </table>
+    </div>
     <div id="main">
-        <%= yield :layout %>
+        <%= yield :layout %> 
     </div>
 </div>
 </body>

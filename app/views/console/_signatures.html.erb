@@ -1,0 +1,11 @@
+    <p>Signatures</p>
+    <table id="sig-table">
+        <tr>
+            <th>sig</th>
+            <th>cls</th>
+            <th>pri</th>
+            <th>name</th>
+            <th>count</th>
+        </tr>
+        <%= render(:partial => "signature_row", :collection =>  @signatures) %>
+    </table>

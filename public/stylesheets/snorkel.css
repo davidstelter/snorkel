@@ -1,19 +1,60 @@
-.body {
+body {
+    font-size: small;
+    font-family: "sans";
+    background: #8ad;
+}
+td {
     font-size: smaller;
 }
+#main {
+    background: gray;
+    -moz-border-radius: 7px;
+}
+#cons-ctl-bar {
+    float: left;
+   /* border: solid 1px; */
+    -moz-border-radius: 7px;
+    background: #def;
+}
 
+.btn:hover {
+    background: black;
+} 
 
+.btn {
+    cursor: pointer;
+}
+
+#cons-ctl-bar {
+    
+}
+
+#cons-ctl-bar td:hover {
+    background: yellow;
+
+}
+
+#stats {
+ /*   border: solid 1px;*/
+    -moz-border-radius: 7px;
+    background: #ddf;
+}
 .num-cell {
     text-align: right;
 }
 
-#sig-table {
-    border: solid 1px;
-    border-color: gray;
-    border-collapse: collapse;
+.ip-cell {
+    text-align: right;
 }
 
-#sig-table td, th{
+#sig-table, #ev-table{
+
+    border-collapse: collapse;
+    background: #ddf;
+}
+
+#sig-table td, th, #ev-table td, th{
     border: solid 1px;
     border-color: gray;
 }
+

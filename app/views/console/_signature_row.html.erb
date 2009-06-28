@@ -1,0 +1,9 @@
+<tr>
+    <td class="btn" class="num-cell" onclick="<%= remote_function( :url => { :action => 'signature', :id => signature_row }) %>"><%=h signature_row.sig_id %></td>
+
+    <td class="num-cell"><%=h (signature_row.sig_class_id || "-")%></td>
+    <td class="num-cell"><%=h (signature_row.sig_priority || "-")%></td>
+    <td><%=h signature_row.sig_name %></td>
+    <td class="num-cell"><%=h signature_row.events.count %></td> 
+</tr>
+
