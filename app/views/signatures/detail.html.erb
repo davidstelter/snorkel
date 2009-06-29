@@ -21,6 +21,14 @@
         <td>Class</td>
         <td><%=h @signature.class_name %></td>
     </tr>
+    <tr>
+        <td>First</td>
+        <td><%=h @signature.first_seen %></td>
+    </tr>
+    <tr>
+        <td>Last</td>
+        <td><%=h @signature.last_seen %></td>
+    </tr>
 </table>
 </br>
 <%= render(:partial => "alerts_brief") %>

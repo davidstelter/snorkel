@@ -21,4 +21,18 @@ class Signature < ActiveRecord::Base
       'Unclassified'
     end
   end
+
+  def first_seen
+    first_event = Event.find(:first, 
+                      :conditions => "signature = #{self.sig_id}",
+                      :order => "timestamp")
+    first_event.timestamp
+  end
+
+  def last_seen
+    last_event = Event.find(:first, 
+                      :conditions => "signature = #{self.sig_id}",
+                      :order => "timestamp DESC")
+    last_event.timestamp
+  end
 end
