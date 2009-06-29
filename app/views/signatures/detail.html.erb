@@ -11,7 +11,7 @@
     </tr>
     <tr>
         <td>Priority</td>
-        <td><%=h @signature.sig_priority %></td>
+        <td><%=h @signature.sig_priority || '-' %></td>
     </tr>
     <tr>
         <td>Class ID</td>
@@ -24,3 +24,6 @@
 </table>
 </br>
 <%= render(:partial => "alerts_brief") %>
+<hr/>
+<%= will_paginate @events %>
+<hr/>

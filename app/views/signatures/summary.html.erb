@@ -9,3 +9,6 @@
         </tr>
         <%= render(:partial => "signature_row", :collection =>  @signatures) %>
     </table>
+    <hr/>
+    <%= will_paginate @signatures %>
+    <hr/>
