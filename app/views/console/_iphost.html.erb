@@ -1,0 +1,12 @@
+<h2>Viewing IP <%=h @iphost.ip_string %></h2>
+<table>
+    <tr>
+        <th>Hostname</th><td><%=h @iphost.hostname %></td>
+    </tr>
+    <tr>
+        <th>Alerts as source</th><td><%=h @iphost.as_src.count %></td>
+    </tr>
+    <tr>
+        <th>Alerts as dest</th><td><%=h @iphost.as_dst.count %></td>
+    </tr>
+</table>

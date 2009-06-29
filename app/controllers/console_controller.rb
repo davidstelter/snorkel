@@ -1,7 +1,11 @@
 class ConsoleController < ApplicationController
 
   def signatures
-    @signatures = Signature.find(:all)
+    if params[:sigs]
+      @signatures = Signature.find(params[:sigs])
+    else
+      @signatures = Signature.find(:all)
+    end
     respond_to do |format|
       format.js
     end
@@ -24,6 +28,14 @@ class ConsoleController < ApplicationController
       format.js
     end
   end
+
+  def iphost
+    @iphost = IpHost.new(params[:ip_addr])
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
 protected
   

@@ -1,0 +1,9 @@
+<tr>
+    <td class="btn" onclick="<%= remote_function( :url => {  :action => 'signature', :id => event_row_brief.signature }) %>"><%=h event_row_brief.signature.sig_id %></td>
+    <td class="num-cell"><%=h (event_row_brief.signature.sig_class_id || "-")%></td>
+    <td class="num-cell"><%=h (event_row_brief.signature.sig_priority || "-")%></td>
+    <td class="timestamp"><%=h event_row_brief.timestamp %></td>
+    <td class="ip-cell"><%=h event_row_brief.iphdr.ip_src_string %></td>
+    <td class="ip-cell"><%=h event_row_brief.iphdr.ip_dst_string %></td>
+</tr>
+

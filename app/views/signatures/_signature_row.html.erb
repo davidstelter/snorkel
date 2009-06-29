@@ -1,0 +1,9 @@
+<tr>
+    <td class="btn"><%= link_to signature_row.sig_id,  :action => 'detail', :id => signature_row %></td>
+
+    <td class="num-cell"><%=h (signature_row.sig_class_id || "-")%></td>
+    <td class="num-cell"><%=h (signature_row.sig_priority || "-")%></td>
+    <td><%=h signature_row.sig_name %></td>
+    <td class="num-cell"><%=h signature_row.events.count %></td> 
+</tr>
+

@@ -1,0 +1,11 @@
+    <p>Alerts</p>
+    <table id="ev-table">
+        <tr>
+            <th>sid:cid</th>
+            <th>pri</th>
+            <th>time</th>
+            <th>source</th>
+            <th>dest</th>
+        </tr>
+        <%= render(:partial => "event_row_brief", :collection =>  @events) %>
+    </table>

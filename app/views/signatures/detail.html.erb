@@ -1,25 +1,25 @@
-<h1>Viewing Signature <%=h @sig.sig_id %></h1>
+<h1>Viewing Signature <%=h @signature.sig_id %></h1>
 
 <table id="sig-table">
     <tr>
         <td>Name</td>
-        <td><%=h @sig.sig_name %></td>
+        <td><%=h @signature.sig_name %></td>
     </tr>
     <tr>
         <td>ID</td>
-        <td><%=h @sig.sig_id %></td>
+        <td><%=h @signature.sig_id %></td>
     </tr>
     <tr>
         <td>Priority</td>
-        <td><%=h @sig.sig_priority %></td>
+        <td><%=h @signature.sig_priority %></td>
     </tr>
     <tr>
         <td>Class ID</td>
-        <td><%=h @sig.sig_class_id || '-'%></td>
+        <td><%=h @signature.sig_class_id || '-'%></td>
     </tr>
     <tr>
         <td>Class</td>
-        <td><%=h @sig.class_name %></td>
+        <td><%=h @signature.class_name %></td>
     </tr>
 </table>
 </br>

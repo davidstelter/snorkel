@@ -1,7 +1,7 @@
 body {
     font-size: small;
     font-family: "sans";
-    background: #8ad;
+    background: black;
 }
 td {
     font-size: smaller;
@@ -23,6 +23,7 @@ td {
 
 .btn {
     cursor: pointer;
+    font-style: bold underline;
 }
 
 #cons-ctl-bar {
