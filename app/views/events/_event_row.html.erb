@@ -1,5 +1,5 @@
 <tr>
-    <td><%= link_to "#{event_row.sid}:#{event_row.cid}", :controller => "events", :action => "detail", :id => "#{event_row.sid}:#{event_row.cid}" %></td>
+    <td><%= link_to "#{event_row.sid}:#{event_row.cid}", :controller => "events", :action => "detail", :id => event_row.to_param %></td>
     <td><%= link_to event_row.signature.sig_id, :controller => "signatures", :action => "detail", :id =>  event_row.signature.sig_id %></td>
     <td class="num-cell"><%=h (event_row.signature.sig_class_id || "-")%></td>
     <td class="num-cell"><%=h (event_row.signature.sig_priority || "-")%></td>

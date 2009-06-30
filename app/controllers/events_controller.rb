@@ -13,6 +13,11 @@ class EventsController < ApplicationController
   end
 
   def detail
+    if params[:id]
+      @event = Event.find(params[:id])
+    else
+      @event = Event.find(:first)
+    end
 
   end
 

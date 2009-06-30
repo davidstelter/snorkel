@@ -1,2 +1,25 @@
-<h1>Events#detail</h1>
-<p>Find me in app/views/events/detail.html.erb</p>
+<h2>Event Detail for <%=h @event.id %></h2>
+<table>
+    <tr>
+        <td>Signature</td>
+        <td><%=h @event.signature.sig_name %></td>
+    </tr>
+    <tr>
+        <td>SigID</td>
+        <td><%=h @event.signature.sig_id %></td>
+    </tr>
+    <tr>
+        <td>Sensor</td>
+        <td><%=h @event.sid %></td>
+    </tr>
+    <tr>
+        <td>CID(?)</td>
+        <td><%=h @event.cid %></td>
+    </tr>
+    <tr>
+        <td>Timestamp</td>
+        <td><%=h @event.timestamp %></td>
+    </tr>
+</table>
+
+
