@@ -12,7 +12,8 @@ class EventsController < ApplicationController
                             :order => order)
   end
 
-  def details
+  def detail
+
   end
 
 end
