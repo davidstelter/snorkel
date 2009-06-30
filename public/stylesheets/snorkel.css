@@ -6,10 +6,12 @@ body {
 td {
     font-size: smaller;
 }
+
 #main {
     background: gray;
     -moz-border-radius: 7px;
 }
+
 #cons-ctl-bar {
     float: left;
    /* border: solid 1px; */

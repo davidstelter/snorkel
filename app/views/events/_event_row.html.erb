@@ -1,12 +1,11 @@
 <tr>
+    <td><%= link_to "#{event_row.sid}:#{event_row.cid}", :controller => "events", :action => "detail", :id => "#{event_row.sid}:#{event_row.cid}" %></td>
     <td><%= link_to event_row.signature.sig_id, :controller => "signatures", :action => "detail", :id =>  event_row.signature.sig_id %></td>
     <td class="num-cell"><%=h (event_row.signature.sig_class_id || "-")%></td>
     <td class="num-cell"><%=h (event_row.signature.sig_priority || "-")%></td>
     <td><%=h event_row.signature.sig_name %></td>
     <td class="timestamp"><%=h event_row.timestamp %></td>
-    <td class="btn" onclick="<%= remote_function( :url => { :action => 'iphost', :ip_addr => event_row.iphdr.ip_src_string }) %>">
-        <%=h event_row.iphdr.ip_src_string %></td>
-    <td class="btn" onclick="<%= remote_function( :url => { :action => 'iphost', :ip_addr => event_row.iphdr.ip_dst_string }) %>">
-        <%=h event_row.iphdr.ip_dst_string %></td>
+    <td><%= link_to event_row.iphdr.ip_src_string, :controller => "iphosts", :action => "detail", :id => event_row.iphdr.ip_src_string %></td>
+    <td><%= link_to event_row.iphdr.ip_dst_string, :controller => "iphosts", :action => "detail", :id => event_row.iphdr.ip_dst_string %></td>
 </tr>
 
