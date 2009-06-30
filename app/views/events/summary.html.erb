@@ -1,0 +1,15 @@
+    <p>Alerts</p>
+    <table id="ev-table">
+        <tr>
+            <th>sig</th>
+            <th>cls</th>
+            <th>pri</th>
+            <th>signature name</th>
+            <th>time</th>
+            <th>source</th>
+            <th>dest</th>
+        </tr>
+        <%= render(:partial => "event_row", :collection =>  @events) %>
+    </table>
+    <hr/>
+    <div id="pager-ctl"><%= pager_control @summary_pager %></div>
