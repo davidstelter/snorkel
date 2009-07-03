@@ -1,7 +1,25 @@
 <tr>
-    <td class="num-cell"><%=h event_row_brief.sid %>:<%=h event_row_brief.cid %></td>
+    <td class="num-cell">
+        <%= link_to event_row_brief.to_param, 
+            :controller => "events", 
+            :action => "detail", 
+            :id => event_row_brief.to_param 
+        %>
+    </td>
     <td class="timestamp"><%=h event_row_brief.timestamp %></td>
-    <td class="ip-cell"><%=h event_row_brief.iphdr.ip_src_string %></td>
-    <td class="ip-cell"><%=h event_row_brief.iphdr.ip_dst_string %></td>
+    <td class="ip-cell">
+        <%= link_to event_row_brief.iphdr.ip_src_string,
+            :controller => "iphosts",
+            :action => "detail",
+            :id => event_row_brief.iphdr.ip_src_string 
+            %>
+    </td>
+    <td class="ip-cell">
+        <%= link_to event_row_brief.iphdr.ip_dst_string,
+            :controller => "iphosts",
+            :action => "detail",
+            :id => event_row_brief.iphdr.ip_dst_string 
+            %>
+    </td>
 </tr>
 
