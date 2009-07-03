@@ -44,18 +44,87 @@ module ApplicationHelper
     @output
   end
 
+  def dummy_cells(num)
+    cells_s = ""
+    num.times do
+      cells_s << %{<td class="dummy-cell"></td>}
+    end
+    cells_s
+  end
+
+  def packet_headers(iphdr)
+    hdr_s = ip_header(iphdr)
+
+    if(iphdr.tcphdr)
+      hdr_s << tcp_header(iphdr.tcphdr)
+    end
+    
+    hdr_s
+  end
+
+  def tcp_header(tcphdr)
+    tcphdr_s = %{
+      <div class="packet-header">
+        <table>
+          <caption>TCP Header</caption>
+          <tr>
+    }
+    tcphdr_s << dummy_cells(32)
+    tcphdr_s << %{
+          </tr>
+          <tr>
+            <th colspan=16>SRCPORT</th><th colspan=16>DSTPORT</th>
+          </tr>
+          <tr>
+            <td colspan=16>#{tcphdr.tcp_sport}</td>
+            <td colspan=16>#{tcphdr.tcp_dport}</td>
+          </tr>
+          <tr>
+            <th colspan=32>SEQ NUM</th>
+          </tr>
+          <tr>
+            <td colspan=32>0x#{tcphdr.tcp_seq.to_s.hex}</td>
+          </tr>
+          <tr>
+            <th colspan=32>ACK NUM</th>
+          </tr>
+          <tr>
+            <td colspan=32>0x#{tcphdr.tcp_ack.to_s.hex}</td>
+          </tr>
+          <tr>
+            <th colspan=4>LEN</th><th colspan=6>RSVD</th><th colspan=6>FLAGS</th><th colspan=16>WINDOW</th>
+          </tr>
+          <tr>
+            <td colspan=4>#{tcphdr.tcp_off}</td>
+            <td colspan=6>0x#{tcphdr.tcp_res.to_s.hex}</td>
+            <td colspan=6>#{tcphdr.tcp_flags}</td>
+            <td colspan=16>#{tcphdr.tcp_win}</td>
+          </tr>
+          <tr>
+            <th colspan=16>CHKSUM</th><th colspan=16>URG PTR</th>
+          </tr>
+          <tr>
+            <td colspan=16>0x#{tcphdr.tcp_csum}</td>
+            <td colspan=16>0x#{tcphdr.tcp_urp}</td>
+          </tr>
+        </table>
+      </div>
+    }
+  end
+
+
   def ip_header(iphdr)
     iphdr_s = %{
-      <table border id=ipheader>
+    <div class="packet-header">
+      <table>
+        <caption>IP Header</caption>
         <tr>
-          <div display="none">
     }
-    32.times do 
-      iphdr_s << %{<th>&nbsp;</th>}
-    end
-    iphdr_s << %{</div>
+    iphdr_s << dummy_cells(32)
+    iphdr_s << %{
+        </tr>
         <tr>
-          <td colspan=4>IP Ver</td><td colspan=4>HLEN</td><td colspan=8>TOS</td><td colspan=16>PKTLEN</td>
+          <th colspan=4>IP Ver</th><th colspan=4>HLEN</th><th colspan=8>TOS</th><th colspan=16>PKTLEN</th>
         </tr>
         <tr>
           <td colspan=4>#{iphdr.ip_ver}</td>
@@ -64,7 +133,7 @@ module ApplicationHelper
           <td colspan=16>#{iphdr.ip_len}</td>
         </tr>
         <tr>
-          <td colspan=16>IP ID</td><td colspan=3>FLAGS</td><td colspan=13>OFFSET</td>
+          <th colspan=16>IP ID</th><th colspan=3>FLG</th><th colspan=13>OFFSET</th>
         </tr>
         <tr>
           <td colspan=16>0x#{iphdr.ip_id}</td>
@@ -72,7 +141,7 @@ module ApplicationHelper
           <td colspan=13>#{iphdr.ip_off}</td>
         </tr>
         <tr>
-          <td colspan=8>TTL</td><td colspan=8>PROTO</td><td colspan=16>CHKSUM</td>
+          <th colspan=8>TTL</th><th colspan=8>PROTO</th><th colspan=16>CHKSUM</th>
         </tr>
         <tr>
           <td colspan=8>#{iphdr.ip_ttl}</td>
@@ -80,18 +149,19 @@ module ApplicationHelper
           <td colspan=16>0x#{iphdr.ip_csum.to_s.hex}</td>
         </tr>
         <tr>
-          <td colspan=32>Src IP</td>
+          <th colspan=32>Src IP</th>
         </tr>
         <tr>
           <td colspan=32>#{iphdr.ip_src_string}</td>
         </tr>
         <tr>
-          <td colspan=32>Dst IP</td>
+          <th colspan=32>Dst IP</th>
         </tr>
         <tr>
           <td colspan=32>#{iphdr.ip_dst_string}</td>
         </tr>
       </table> 
+    </div>
     }
     iphdr_s
   end
