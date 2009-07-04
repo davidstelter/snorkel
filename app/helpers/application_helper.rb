@@ -53,16 +53,43 @@ module ApplicationHelper
   end
 
   def packet_headers(iphdr)
-    hdr_s = ip_header(iphdr)
+    hdr_s = %{<div id="packet-headers">}
+    hdr_s << ip_header(iphdr)
 
     if(iphdr.tcphdr)
       hdr_s << tcp_header(iphdr.tcphdr)
     end
     
-    hdr_s
+    hdr_s << %{</div>}
   end
 
   def tcp_header(tcphdr)
+    urg = ""
+    ack = ""
+    psh = ""
+    rst = ""
+    syn = ""
+    fin = ""
+
+    if (tcphdr.tcp_flags[5] == 1)
+      urg = "U"
+    end
+    if (tcphdr.tcp_flags[4] == 1)
+      ack = "A"
+    end
+    if (tcphdr.tcp_flags[3] == 1)
+      psh = "P"
+    end
+    if (tcphdr.tcp_flags[2] == 1)
+      rst = "R"
+    end
+    if (tcphdr.tcp_flags[1] == 1)
+      syn = "S"
+    end
+    if (tcphdr.tcp_flags[0] == 1)
+      fin = "F"
+    end
+
     tcphdr_s = %{
       <div class="packet-header">
         <table>
@@ -97,7 +124,12 @@ module ApplicationHelper
           <tr>
             <td colspan=4>#{tcphdr.tcp_off}</td>
             <td colspan=6>0x#{tcphdr.tcp_res.to_s.hex}</td>
-            <td colspan=6>#{tcphdr.tcp_flags}</td>
+            <td colspan=1>#{urg}</td>
+            <td colspan=1>#{ack}</td>
+            <td colspan=1>#{psh}</td>
+            <td colspan=1>#{rst}</td>
+            <td colspan=1>#{syn}</td>
+            <td colspan=1>#{fin}</td>
             <td colspan=16>#{tcphdr.tcp_win}</td>
           </tr>
           <tr>
@@ -114,6 +146,20 @@ module ApplicationHelper
 
 
   def ip_header(iphdr)
+    res = ""
+    df  = ""
+    mf  = ""
+
+    if (iphdr.ip_flags[2] == 1)
+      res = "R"
+    end
+    if (iphdr.ip_flags[1] == 1)
+      df = "D"
+    end
+    if (iphdr.ip_flags[0] == 1)
+      mf = "M"
+    end
+
     iphdr_s = %{
     <div class="packet-header">
       <table>
@@ -137,7 +183,9 @@ module ApplicationHelper
         </tr>
         <tr>
           <td colspan=16>0x#{iphdr.ip_id}</td>
-          <td colspan=3>#{iphdr.ip_flags}</td>
+          <td colspan=1>#{res}</td>
+          <td colspan=1>#{df}</td>
+          <td colspan=1>#{mf}</td>
           <td colspan=13>#{iphdr.ip_off}</td>
         </tr>
         <tr>

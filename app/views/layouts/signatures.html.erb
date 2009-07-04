@@ -33,10 +33,10 @@
                 <th>Views</th>
             </tr>
             <tr>
-                <td id="view-sig-btn" class="btn" onclick="<%= remote_function( :url => { :action => 'signatures' }) %>">Signatures</td>
-                </tr>
+                <td id="view-sig-btn"><%= link_to 'Signatures', :controller => 'signatures', :action => 'summary' %></td>
+            </tr>
             <tr>
-                <td id="view-alert-btn" class="btn" onclick="<%= remote_function( :url => { :action => 'alerts' }) %>">Alerts</td>
+                <td id="view-alert-btn"><% link_to 'Events', :controller => 'events', :action => 'summary' %></td>
             </tr>
         </tr>
     </table>

@@ -6,7 +6,8 @@
     </tr>
     <tr>
         <td>SigID</td>
-        <td><%=h @event.signature.sig_id %></td>
+        <td><%= link_to @event.signature.sig_id, 
+            :controller => "signatures", :action => "detail", :id => @event.signature.sig_id %></td>
     </tr>
     <tr>
         <td>Sensor</td>

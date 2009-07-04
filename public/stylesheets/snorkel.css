@@ -1,7 +1,7 @@
 body {
     font-size: small;
     font-family: "sans";
-    background: black;
+    background: #111;
 }
 td {
     font-size: smaller;
@@ -65,14 +65,23 @@ td {
 
 /* packet header tables */
 
-.dummy-cell {
+#packet-headers {
+    position: fixed;
+    left: 50%; 
+    right: 0;
+    width: 340px;
+    margin: 10px;
+    padding: 10px;
+    background: #ddd;
+    -moz-border-radius: 7px;
 }
 
 .packet-header table{
     table-layout: fixed;
-    width: 300px; 
-    border: solid 1px;
+    width: 340px; 
+    border: solid 2px;
     border-collapse: collapse; 
+    background: #aaa;
 }
 
 .packet-header th , .packet-header td{
@@ -86,6 +95,7 @@ td {
 
 .packet-header td{
     background: #ddd;
+    font-family: "mono";
 }
 
 .packet-header th {
@@ -95,5 +105,11 @@ td {
     border-right: solid 1px;
     border-bottom: dotted 1px;
 }
-
+.packet-header caption {
+    font-size: 11px;
+    font-weight: bold;
+    border-top: solid 2px;
+    border-right: solid 2px;
+    border-left: solid 2px;
+}
 
