@@ -56,11 +56,82 @@ module ApplicationHelper
     hdr_s = %{<div id="packet-headers">}
     hdr_s << ip_header(iphdr)
 
-    if(iphdr.tcphdr)
+    if (iphdr.tcphdr)
       hdr_s << tcp_header(iphdr.tcphdr)
+    end
+
+    if (iphdr.udphdr)
+      hdr_s << udp_header(iphdr.udphdr)
+    end
+
+    if (iphdr.data)
+      hdr_s << packet_dump(iphdr.data)
     end
     
     hdr_s << %{</div>}
+  end
+
+  def packet_dump(data)
+    p = data.data_payload
+    data_s = %{
+      <div class="packet-header">
+        <table class="data-tab">
+          <caption>DATA</caption>
+    }
+    0.step(p.length, 16) {|i|
+      data_s << %{
+          <tr>
+            <td>#{p[i,   4]}&nbsp;
+                #{p[i+4, 4]}&nbsp;
+                #{p[i+8, 4]}&nbsp;
+                #{p[i+12,4]}
+            </td>
+            <td>
+      }
+    
+      i.step(i+15, 2) { |j|
+        d = p[(j),2].to_s.to_i(base=16)
+        if (d >= 0x7f || d <= 0x32)
+          data_s << "."
+        else
+          data_s << %{#{h d.chr}}
+        end
+      }
+    } 
+    data_s << %{
+          </td>
+        </tr>
+      </table>
+    </div>
+    }
+  end
+  def udp_header(udphdr)
+    udphdr_s = %{
+      <div class="packet-header">
+        <table>
+          <caption>UDP Header</caption>
+          <tr>
+    }
+    udphdr_s << dummy_cells(32)
+    udphdr_s << %{
+          </tr>
+          <tr>
+            <th colspan=16>SRC PORT</th><th colspan=16>DST PORT</th>
+          </tr>
+          <tr>
+            <td colspan=16>#{udphdr.udp_sport}</td>
+            <td colspan=16>#{udphdr.udp_dport}</td>
+          </tr>
+          <tr>
+            <th colspan=16>LEN</th><th colspan=16>CHKSUM</th>
+          </tr>
+          <tr>
+            <td colspan=16>#{udphdr.udp_len}</td>
+            <td colspan=16>0x#{udphdr.udp_csum.to_s.hex}</td>
+          <tr>
+        </table>
+      </div>
+    }
   end
 
   def tcp_header(tcphdr)

@@ -98,6 +98,10 @@ td {
     font-family: "mono";
 }
 
+.data-tab td{
+    font-size: 11px;
+}
+
 .packet-header th {
     font-size: 10px;
     border-top: solid 1px;
