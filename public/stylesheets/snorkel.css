@@ -12,7 +12,7 @@ td {
     -moz-border-radius: 7px;
 }
 
-#cons-ctl-bar {
+.side-nav {
     float: left;
    /* border: solid 1px; */
     -moz-border-radius: 7px;
