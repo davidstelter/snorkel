@@ -5,6 +5,9 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
   def pager_control(pager, n = 3)
+    if (pager.page_cnt <= 1)
+      return
+    end
     @output = ""
     @output << link_to_unless(pager.page == 1, h("<<"), :page => 1)
     @output << h(" ")
