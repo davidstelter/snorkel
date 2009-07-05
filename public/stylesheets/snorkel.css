@@ -18,13 +18,17 @@ td {
     -moz-border-radius: 7px;
     background: #def;
 }
-.detail-left {
+.detail-left, .summary-left {
     padding: 10px;
     margin: 10px;
     background: #ddd;
     -moz-border-radius: 7px;
     float: left;
     width: 50%;    
+}
+
+.summary-left {
+    width: 80%;
 }
 .detail-right {
     float: left;
@@ -63,7 +67,6 @@ td {
 #sig-table, #ev-table{
 
     border-collapse: collapse;
-    background: #ddf;
 }
 
 #sig-table td, th, #ev-table td, th{
