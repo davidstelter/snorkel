@@ -1,4 +1,5 @@
-    <p>Signatures</p>
+<div class="summary-left">
+    <h2>Signatures</h2>
     <table id="sig-table">
         <tr>
             <th>sig</th>
@@ -10,5 +11,5 @@
         <%= render(:partial => "signature_row", :collection =>  @signatures) %>
     </table>
     <hr/>
-    <%= will_paginate @signatures %>
-    <hr/>
+    <div id="pager-ctl"><%= pager_control @summary_pager %></div>
+</div>
