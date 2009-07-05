@@ -4,14 +4,13 @@
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  def pager_control(pager, n = 2)
+  def pager_control(pager, n = 3)
     @output = ""
-    if pager.page > 1
-      @output << "<a href=\"?page=1\">\<\< </a>"
-      @output << "<a href=\"?page=#{pager.page - 1}\">\< </a>"
-    else
-      @output << "\<\< \< "
-    end
+    @output << link_to_unless(pager.page == 1, h("<<"), :page => 1)
+    @output << h(" ")
+    @output << link_to_unless(pager.page == 1, h("<"), :page => (pager.page - 1))
+    @output << h(" ")
+
     lower = 0
     upper = 0
 
@@ -27,19 +26,12 @@ module ApplicationHelper
     end
 
     for page in lower..upper
-      if page == pager.page
-        @output << "#{page} "
-      else
-        @output << "<a href=\"?page=#{page.to_s}\">#{page.to_s}</a> "
-      end
+      @output << link_to_unless(page == pager.page, page.to_s, :page => page)
+      @output << h(" ")
     end
-
-    if pager.page < pager.page_cnt
-      @output << "<a href=\"?page=#{pager.page + 1}\">\> </a>"
-      @output << "<a href=\"?page=#{pager.page_cnt}\">\>\></a>"
-    else
-      @output << "\> \>\>"
-    end
+    @output << link_to_unless(pager.page_cnt <= pager.page, h(">"), :page => (pager.page + 1))
+    @output << h(" ")
+    @output << link_to_unless(pager.page_cnt <= pager.page, h(">>"), :page => (pager.page_cnt))
 
     @output
   end
