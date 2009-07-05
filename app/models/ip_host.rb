@@ -13,9 +13,13 @@ class IpHost
 
   def hostname
     if @hostname == nil
-      s = Socket.getaddrinfo(@ip_string, nil)
-      @hostname = s[0][2]
+      @hostname = IpHost.reverse_dns(@ip_string)
     end
     @hostname
+  end
+
+  def IpHost.reverse_dns(ip_string)
+    s = Socket.getaddrinfo(ip_string, nil)
+    s[0][2]
   end
 end

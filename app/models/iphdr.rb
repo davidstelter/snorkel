@@ -59,6 +59,15 @@ class Iphdr < ActiveRecord::Base
     Iphdr.ip_int_to_string(self.ip_dst)
   end
 
+  def ip_src_dns
+    IpHost.reverse_dns(self.ip_src_string)
+  end
+
+  def ip_dst_dns
+    IpHost.reverse_dns(self.ip_dst_string)
+  end
+
+
 #returns numeric IP address given a dotted-octet IP string
   def Iphdr.ip_string_to_int(ip_string)
     ip_int = 0

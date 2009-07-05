@@ -16,4 +16,28 @@ class Event < ActiveRecord::Base
   has_one    :iphdr, 
              :class_name  => "Iphdr", 
              :foreign_key => [:sid, :cid]
+
+  def sig_id
+    self.signature.sig_id
+  end
+
+  def sig_name
+    self.signature.sig_name
+  end
+
+  def ip_src_dns
+    self.iphdr.ip_src_string
+  end
+
+  def ip_dst_dns
+    self.iphdr.ip_dst_string
+  end
+  
+  def ip_src_string
+    self.iphdr.ip_src_string
+  end
+
+  def ip_dst_string
+    self.iphdr.ip_dst_string
+  end
 end

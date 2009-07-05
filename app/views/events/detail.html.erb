@@ -1,27 +1,45 @@
+<div class="detail-left">
 <h2>Event Detail for <%=h @event.id %></h2>
 <table>
     <tr>
-        <td>Signature</td>
-        <td><%=h @event.signature.sig_name %></td>
+        <th>Signature</th>
+        <td><%=h @event.sig_name %></td>
     </tr>
     <tr>
-        <td>SigID</td>
-        <td><%= link_to @event.signature.sig_id, 
-            :controller => "signatures", :action => "detail", :id => @event.signature.sig_id %></td>
+        <th>SigID</th>
+        <td><%= link_to @event.sig_id, 
+            :controller => "signatures", :action => "detail", :id => @event.sig_id %></td>
     </tr>
     <tr>
-        <td>Sensor</td>
+        <th>Sensor</th>
         <td><%=h @event.sid %></td>
     </tr>
     <tr>
-        <td>CID(?)</td>
+        <th>CID</th>
         <td><%=h @event.cid %></td>
     </tr>
     <tr>
-        <td>Timestamp</td>
+        <th>Timestamp</th>
         <td><%=h @event.timestamp %></td>
     </tr>
-</table>
+    <tr>
+        <th>Source</th>
+        <td><%= link_to @event.ip_src_string, 
+            :controller => 'iphosts', :action => 'detail', :id => @event.ip_src_string %> 
+            (<%=h @event.ip_src_dns %>)
+        </td>
+    </tr>
+    <tr>
+        <th>Destination</th>
+        <td><%= link_to @event.ip_dst_string, 
+            :controller => 'iphosts', :action => 'detail', :id => @event.ip_dst_string %> 
+            (<%=h @event.ip_dst_dns %>)
+        </td>
 
+    </tr>
+</table>
+</div>
+<div class="detail-right">
 <%= packet_headers @event.iphdr %>
+</div>
 

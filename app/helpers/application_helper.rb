@@ -76,35 +76,41 @@ module ApplicationHelper
     data_s = %{
       <div class="packet-header">
         <table class="data-tab">
-          <caption>DATA</caption>
+          <caption>PAYLOAD</caption>
+          <tr><td><div id="scroller">
+            <table id="scrolltab">
     }
-    0.step(p.length, 16) {|i|
+    0.step(p.length, 16) { |i|
       data_s << %{
           <tr>
-            <td>#{p[i,   4]}&nbsp;
-                #{p[i+4, 4]}&nbsp;
-                #{p[i+8, 4]}&nbsp;
-                #{p[i+12,4]}
+            <td id="data-offset">#{i.to_s(base=16)}:</td>
+            <td id="data-hex">
+                #{p[i,   4].downcase}&nbsp;
+                #{p[i+4, 4].downcase if p[i+4, 4]} &nbsp;
+                #{p[i+8, 4].downcase if p[i+8, 4]}&nbsp;
+                #{p[i+12,4].downcase if p[i+12,4]}
             </td>
-            <td>
+            <td id="data-ascii">
       }
     
       i.step(i+15, 2) { |j|
-        d = p[(j),2].to_s.to_i(base=16)
-        if (d >= 0x7f || d <= 0x32)
-          data_s << "."
-        else
-          data_s << %{#{h d.chr}}
+        if (j < p.length)
+          d = p[(j),2].to_s.to_i(base=16)
+          #if (d >= 0x7f || d <= 0x32)
+           # data_s << "."
+          #else
+            data_s << %{#{h d.chr}}
+          #end
         end
       }
     } 
     data_s << %{
-          </td>
-        </tr>
+       </table> </div></td></tr>
       </table>
     </div>
     }
   end
+
   def udp_header(udphdr)
     udphdr_s = %{
       <div class="packet-header">

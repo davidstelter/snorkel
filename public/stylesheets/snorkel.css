@@ -18,6 +18,17 @@ td {
     -moz-border-radius: 7px;
     background: #def;
 }
+.detail-left {
+    padding: 10px;
+    margin: 10px;
+    background: #ddd;
+    -moz-border-radius: 7px;
+    float: left;
+    width: 50%;    
+}
+.detail-right {
+    float: left;
+}
 
 .btn:hover {
     background: black;
@@ -60,15 +71,29 @@ td {
     border-color: gray;
 }
 
+.detail-table {
+}
+.detail-table th{
+    font-family: "mono";
+    font-size: small;
+}
+
 #ev-table {
 }
 
 /* packet header tables */
 
+#scroller {
+    width: 338px;
+    height: 200px; 
+    overflow: auto; 
+}
+
 #packet-headers {
-    position: fixed;
+
+  /*  position: relative;
     left: 50%; 
-    right: 0;
+    right: 0;*/
     width: 340px;
     margin: 10px;
     padding: 10px;
@@ -82,6 +107,31 @@ td {
     border: solid 2px;
     border-collapse: collapse; 
     background: #aaa;
+}
+
+#scrolltab {
+    border: none;
+    width: 322px;
+}
+
+#scrolltab td {
+    border-bottom: dotted 1px;
+}
+
+#data-offset {
+    width: 40px;
+}
+
+#data-hex {
+    width: 180px;
+    text-align: justify;
+    text-indent: 5%;
+    
+}
+
+#data-ascii {
+    text-align: justify;
+    text-indent: 20%;
 }
 
 .packet-header th , .packet-header td{
@@ -99,7 +149,7 @@ td {
 }
 
 .data-tab td{
-    font-size: 11px;
+    font-size: 12px;
 }
 
 .packet-header th {
