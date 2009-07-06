@@ -1,36 +1,38 @@
-<h1>Viewing Signature <%=h @signature.sig_id %></h1>
+<div class="detail-left">
+    <h1>Viewing Signature <%=h @signature.sig_id %></h1>
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><%=h @signature.sig_name %></td>
+        </tr>
+        <tr>
+            <td>ID</td>
+            <td><%=h @signature.sig_id %></td>
+        </tr>
+        <tr>
+            <td>Priority</td>
+            <td><%=h @signature.sig_priority || '-' %></td>
+        </tr>
+        <tr>
+            <td>Class ID</td>
+            <td><%=h @signature.sig_class_id || '-'%></td>
+        </tr>
+        <tr>
+            <td>Class</td>
+            <td><%=h @signature.class_name %></td>
+        </tr>
+        <tr>
+            <td>First</td>
+            <td><%=h @signature.first_seen %></td>
+        </tr>
+        <tr>
+            <td>Last</td>
+            <td><%=h @signature.last_seen %></td>
+        </tr>
 
-<table id="sig-table">
-    <tr>
-        <td>Name</td>
-        <td><%=h @signature.sig_name %></td>
-    </tr>
-    <tr>
-        <td>ID</td>
-        <td><%=h @signature.sig_id %></td>
-    </tr>
-    <tr>
-        <td>Priority</td>
-        <td><%=h @signature.sig_priority || '-' %></td>
-    </tr>
-    <tr>
-        <td>Class ID</td>
-        <td><%=h @signature.sig_class_id || '-'%></td>
-    </tr>
-    <tr>
-        <td>Class</td>
-        <td><%=h @signature.class_name %></td>
-    </tr>
-    <tr>
-        <td>First</td>
-        <td><%=h @signature.first_seen %></td>
-    </tr>
-    <tr>
-        <td>Last</td>
-        <td><%=h @signature.last_seen %></td>
-    </tr>
-</table>
-</br>
-<%= render(:partial => "alerts_brief") %>
-<hr/>
-<%= pager_control @pager %>
+    </table>
+    </br>
+</div>
+<div id="detail-right">
+    <%= render(:partial => "alerts_brief") %>
+</div>

@@ -1,5 +1,5 @@
-    <p>Alerts</p>
-    <table id="ev-table">
+    <table>
+        <caption>Events</caption>
         <tr>
             <th>sid:cid</th>
             <th>time</th>
@@ -8,3 +8,5 @@
         </tr>
         <%= render(:partial => "event_row_brief", :collection =>  @events) %>
     </table>
+    <hr/>
+    <%= pager_control @pager %>

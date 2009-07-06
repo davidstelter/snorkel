@@ -3,8 +3,44 @@ body {
     font-family: "sans";
     background: #111;
 }
+
+
+
+table {
+    border-collapse: collapse;
+    border: solid 1px;
+    background: #aaa;
+}
+
+caption {
+    font-size: 11px;
+    font-weight: bold;
+    border-top: solid 2px;
+    border-right: solid 2px;
+    border-left: solid 2px;
+}
+
+th, td {
+    text-align: center;
+    padding: 2px;
+/*    margin: 2px;*/
+    border-left: solid 1px;
+    border-right: solid 1px;
+}
+
 td {
     font-size: smaller;
+    font-family: "mono";
+    background: #ddd;
+    border-bottom: solid 1px;
+}
+
+th {
+    font-size: 10px;
+    border-top: solid 1px;
+    border-left: solid 1px;
+    border-right: solid 1px;
+    border-bottom: dotted 1px;
 }
 
 #main {
@@ -30,6 +66,7 @@ td {
 .summary-left {
     width: 80%;
 }
+
 .detail-right {
     float: left;
 }
@@ -42,13 +79,8 @@ td {
     cursor: pointer;
 }
 
-#cons-ctl-bar {
-    
-}
-
 #cons-ctl-bar td:hover {
     background: yellow;
-
 }
 
 #stats {
@@ -56,6 +88,7 @@ td {
     -moz-border-radius: 7px;
     background: #ddf;
 }
+
 .num-cell {
     text-align: right;
 }
@@ -64,24 +97,9 @@ td {
     text-align: right;
 }
 
-#sig-table, #ev-table{
-
-    border-collapse: collapse;
-}
-
-#sig-table td, th, #ev-table td, th{
-    border: solid 1px;
-    border-color: gray;
-}
-
-.detail-table {
-}
 .detail-table th{
     font-family: "mono";
     font-size: small;
-}
-
-#ev-table {
 }
 
 /* packet header tables */
@@ -93,7 +111,6 @@ td {
 }
 
 #packet-headers {
-
   /*  position: relative;
     left: 50%; 
     right: 0;*/
@@ -109,7 +126,6 @@ td {
     width: 340px; 
     border: solid 2px;
     border-collapse: collapse; 
-    background: #aaa;
 }
 
 #scrolltab {
@@ -129,7 +145,6 @@ td {
     width: 180px;
     text-align: justify;
     text-indent: 5%;
-    
 }
 
 #data-ascii {
@@ -141,32 +156,32 @@ td {
     text-align: center;
     padding: 0;
     margin: 0;
-    
     border-left: solid 1px;
     border-right: solid 1px;
 }
 
-.packet-header td{
+/*.packet-header td{
     background: #ddd;
     font-family: "mono";
 }
-
+*/
 .data-tab td{
     font-size: 12px;
 }
 
-.packet-header th {
+/*.packet-header th {
     font-size: 10px;
     border-top: solid 1px;
     border-left: solid 1px;
     border-right: solid 1px;
     border-bottom: dotted 1px;
 }
-.packet-header caption {
+*/
+/*.packet-header caption {
     font-size: 11px;
     font-weight: bold;
     border-top: solid 2px;
     border-right: solid 2px;
     border-left: solid 2px;
 }
-
+*/
