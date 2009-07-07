@@ -4,8 +4,6 @@ body {
     background: #111;
 }
 
-
-
 table {
     border-collapse: collapse;
     border: solid 1px;
@@ -36,6 +34,7 @@ td {
 }
 
 th {
+    font-family: "sans";
     font-size: 10px;
     border-top: solid 1px;
     border-left: solid 1px;
@@ -60,11 +59,9 @@ th {
     background: #ddd;
     -moz-border-radius: 7px;
     float: left;
-    width: 50%;    
 }
 
 .summary-left {
-    width: 80%;
 }
 
 .detail-right {
@@ -102,6 +99,15 @@ th {
     font-size: small;
 }
 
+/* order_control */
+.up-img, .dn-img {
+    margin: 0 5px;
+}
+.up-img {float: left;}
+.dn-img {float: right;}
+
+
+
 /* packet header tables */
 
 #scroller {
@@ -130,7 +136,7 @@ th {
 
 #scrolltab {
     border: none;
-    width: 322px;
+    width: 320px;
 }
 
 #scrolltab td {

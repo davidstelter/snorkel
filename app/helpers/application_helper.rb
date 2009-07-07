@@ -13,7 +13,9 @@ module ApplicationHelper
   end
 
   def order_control(text, args={})
-    params_up = request.params
+    ordered_up = request.params[:order]
+    ordered_dn = request.params[:order_desc]
+    params_up  = request.params
     params_up[:order]      = nil
     params_up[:order_desc] = nil
     params_dn              = params_up.dup
@@ -21,11 +23,23 @@ module ApplicationHelper
     params_dn[:order_desc] = args[:field]
     args[:field]         ||= text
 
-    order_s = ""
-    order_s << link_to(image_tag("up11x11.png", :border => 0), params_up)
-    order_s << h(text)
-    order_s << link_to(image_tag("dn11x11.png", :border => 0), params_dn)
-    order_s
+    order_s = %{<span class="up-img">}
+
+    if ordered_up
+      order_s << image_tag("act-up11x11.png")
+    else
+      order_s << link_to(image_tag("up11x11.png", :border => 0), params_up)
+    end
+
+    order_s << %{</span>#{h(text)}<span class="dn-img">}
+
+    if ordered_dn
+      order_s << image_tag("act-dn11x11.png")
+    else
+      order_s << link_to(image_tag("dn11x11.png", :border => 0), params_dn)
+    end
+
+    order_s << %{</span>}
   end
 
   def pager_control(pager, n = 3)

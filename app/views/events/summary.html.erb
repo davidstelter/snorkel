@@ -1,6 +1,7 @@
 
 <div class="summary-left">
     <h2>Events</h2>
+    <h3><%= dump_params %></h3>
     <table id="ev-table">
         <tr>
             <th>sid:cid</th>
@@ -8,7 +9,7 @@
             <th>cls</th>
             <th>pri</th>
             <th>sig name</th>
-            <th>time</th>
+            <th><%= order_control 'time', :field => 'timestamp' %></th>
             <th>source</th>
             <th>dest</th>
         </tr>
