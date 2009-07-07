@@ -13,22 +13,20 @@ module ApplicationHelper
   end
 
   def order_control(text, args={})
-    ordered_up = request.params[:order]
-    ordered_dn = request.params[:order_desc]
-    params_up  = request.params
-    params_up[:order]      = nil
-    params_up[:order_desc] = nil
-    params_dn              = params_up.dup
-    params_up[:order]      = args[:field]
-    params_dn[:order_desc] = args[:field]
-    args[:field]         ||= text
+    params     = request.params.dup
+    ordered_up = params[:order]
+    ordered_dn = params[:order_desc]
+
+    params[:order]      = nil
+    params[:order_desc] = nil
+    args[:field]      ||= text
 
     order_s = %{<span class="up-img">}
 
     if ordered_up
       order_s << image_tag("act-up11x11.png")
     else
-      order_s << link_to(image_tag("up11x11.png", :border => 0), params_up)
+      order_s << link_to(image_tag("up11x11.png", :border => 0), params.merge(:order => args[:field]))
     end
 
     order_s << %{</span>#{h(text)}<span class="dn-img">}
@@ -36,20 +34,24 @@ module ApplicationHelper
     if ordered_dn
       order_s << image_tag("act-dn11x11.png")
     else
-      order_s << link_to(image_tag("dn11x11.png", :border => 0), params_dn)
+      order_s << link_to(image_tag("dn11x11.png", :border => 0), params.merge(:order_desc => args[:field]))
     end
 
     order_s << %{</span>}
   end
 
   def pager_control(pager, n = 3)
+    params          = request.params.dup
+    params[:page] ||= 1
+    pager.page      = params[:page].to_i
+
     if (pager.page_cnt <= 1)
       return
     end
     @output = ""
-    @output << link_to_unless(pager.page == 1, h("<<"), :page => 1)
+    @output << link_to_unless(pager.page == 1, h("<<"), params.merge(:page => 1))
     @output << h(" ")
-    @output << link_to_unless(pager.page == 1, h("<"), :page => (pager.page - 1))
+    @output << link_to_unless(pager.page == 1, h("<"), params.merge(:page => (pager.page - 1).to_s))
     @output << h(" ")
 
     lower = 0
@@ -67,12 +69,12 @@ module ApplicationHelper
     end
 
     for page in lower..upper
-      @output << link_to_unless(page == pager.page, page.to_s, :page => page)
+      @output << link_to_unless(page == pager.page, page.to_s, params.merge(:page => page))
       @output << h(" ")
     end
-    @output << link_to_unless(pager.page_cnt <= pager.page, h(">"), :page => (pager.page + 1))
+    @output << link_to_unless(pager.page_cnt <= pager.page, h(">"), params.merge(:page => (pager.page + 1)))
     @output << h(" ")
-    @output << link_to_unless(pager.page_cnt <= pager.page, h(">>"), :page => (pager.page_cnt))
+    @output << link_to_unless(pager.page_cnt <= pager.page, h(">>"), params.merge(:page => (pager.page_cnt)))
 
     @output
   end
