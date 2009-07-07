@@ -4,6 +4,14 @@
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  def order_control(text)
+    order_s = ""
+    order_s << image_tag("up11x11.png")
+    order_s << h(text)
+    order_s << image_tag("dn11x11.png")
+    order_s
+  end
+
   def pager_control(pager, n = 3)
     if (pager.page_cnt <= 1)
       return
@@ -91,11 +99,11 @@ module ApplicationHelper
       i.step(i+15, 2) { |j|
         if (j < p.length)
           d = p[(j),2].to_s.to_i(base=16)
-          #if (d >= 0x7f || d <= 0x32)
-           # data_s << "."
-          #else
+          if (d >= 0x7f || d <= 0x20)
+            data_s << "."
+          else
             data_s << %{#{h d.chr}}
-          #end
+          end
         end
       }
     } 
