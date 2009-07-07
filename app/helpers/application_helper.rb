@@ -4,11 +4,27 @@
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  def order_control(text)
+  def dump_params
+    ps = ""
+    request.params.each do |key, val|
+      ps << ":#{key} => #{val}</br>"
+    end
+    ps
+  end
+
+  def order_control(text, args={})
+    params_up = request.params
+    params_up[:order]      = nil
+    params_up[:order_desc] = nil
+    params_dn              = params_up.dup
+    params_up[:order]      = args[:field]
+    params_dn[:order_desc] = args[:field]
+    args[:field]         ||= text
+
     order_s = ""
-    order_s << image_tag("up11x11.png")
+    order_s << link_to(image_tag("up11x11.png", :border => 0), params_up)
     order_s << h(text)
-    order_s << image_tag("dn11x11.png")
+    order_s << link_to(image_tag("dn11x11.png", :border => 0), params_dn)
     order_s
   end
 
@@ -47,10 +63,14 @@ module ApplicationHelper
     @output
   end
 
-  def dummy_cells(num)
+# this helper creates num count of table cells (<td></td>)
+# if :class is set in the params hash, the specified class
+# will be used in place of the default of 'dummy-cell'
+  def dummy_cells(num, params = {})
+    params[:class] ||= 'dummy-cell'
     cells_s = ""
     num.times do
-      cells_s << %{<td class="dummy-cell"></td>}
+      cells_s << %{<td class=#{params[:class]}></td>}
     end
     cells_s
   end
