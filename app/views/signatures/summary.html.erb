@@ -1,4 +1,22 @@
 <div class="summary-left">
+    <h2>Signature Filter</h2>
+    <% form_tag({:controller => 'signatures', :action => 'summary'}, :method => 'get') do %>
+        <table>
+            <tr>
+                <th><%= label_tag(:sig_name, 'Signature Name') %></th>
+                <td><%= text_field_tag(:sig_name) %></td>
+            </tr>
+            <tr>
+                <th><%= label_tag(:pri, 'Priority') %></th>
+                <td><%= text_field_tag(:pri) %></td>
+            </tr>
+            <tr>
+                <th><%= submit_tag("Filter") %></th>
+            </tr>
+        </table>
+    <% end %>
+</div>
+<div class="summary-right">
     <h2>Signatures</h2>
     <table id="sig-table">
         <tr>

@@ -64,8 +64,12 @@ th {
 .summary-left {
 }
 
-.detail-right {
+.detail-right, .summary-right{
     float: left;
+    padding: 10px;
+    margin: 10px;
+    -moz-border-radius: 7px;
+    background: #ddd;
 }
 
 .btn:hover {
