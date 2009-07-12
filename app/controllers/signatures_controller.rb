@@ -15,9 +15,6 @@ class SignaturesController < ApplicationController
     end
 
     @summary_pager = Pager.new(Signature.count, params[:page])
-    fh = { :limit  => @summary_pager.per_page,
-      :offset => @summary_pager.offset, 
-      :order  => order}
 
     cond_string = []
     cond_hash   = {}
