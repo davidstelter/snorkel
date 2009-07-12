@@ -38,9 +38,9 @@ class SignaturesController < ApplicationController
 
 
       @signatures    = Signature.find(:all, 
-                                      :limit  => @summary_pager.per_page,
-                                      :offset => @summary_pager.offset, 
-                                      :order  => order,
+                                      :limit      => @summary_pager.per_page,
+                                      :offset     => @summary_pager.offset, 
+                                      :order      => order,
                                       :conditions => [ conditions, cond_hash])
   end
 
