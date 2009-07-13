@@ -3,7 +3,7 @@
 # Please see the file COPYING in the root source directory for details
 
 class Signature < ActiveRecord::Base
-  set_table_name "signature"
+  set_table_name "sig_with_event_count"
   self.primary_key = "sig_id"
   belongs_to :sig_class,
              :class_name  => "SigClass",
@@ -17,6 +17,7 @@ class Signature < ActiveRecord::Base
   has_many   :references,
              :through     => :sig_references,
              :source      => :reference
+
 
   def class_name
     if self.sig_class
@@ -38,5 +39,9 @@ class Signature < ActiveRecord::Base
                       :conditions => "signature = #{self.sig_id}",
                       :order => "timestamp DESC")
     last_event.timestamp
+  end
+
+  def Signature.with_min_alerts(count)
+    Signature.find_by_sql(["select * from signature where sig_id in (select signature from event group by event.signature having count(*) >= ?);", count])
   end
 end
