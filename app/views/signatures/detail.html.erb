@@ -2,37 +2,37 @@
     <h1>Viewing Signature <%=h @signature.sig_id %></h1>
     <table>
         <tr>
-            <td>Name</td>
+            <th>Name</th>
             <td><%=h @signature.sig_name %></td>
         </tr>
         <tr>
-            <td>ID</td>
+            <th>ID</th>
             <td><%=h @signature.sig_id %></td>
         </tr>
         <tr>
-            <td>Priority</td>
+            <th>Priority</th>
             <td><%=h @signature.sig_priority || '-' %></td>
         </tr>
         <tr>
-            <td>Class ID</td>
-            <td><%=h @signature.sig_class_id || '-'%></td>
+            <th>Class ID</th>
+            <td><%=h @signature.sig_class_id || '-' %></td>
         </tr>
         <tr>
-            <td>Class</td>
+            <th>Class</th>
             <td><%=h @signature.class_name %></td>
         </tr>
         <tr>
-            <td>First</td>
+            <th>First</th>
             <td><%=h @signature.first_seen %></td>
         </tr>
         <tr>
-            <td>Last</td>
+            <th>Last</th>
             <td><%=h @signature.last_seen %></td>
         </tr>
 
     </table>
     </br>
 </div>
-<div id="detail-right">
+<div class="detail-right">
     <%= render(:partial => "alerts_brief") %>
 </div>
