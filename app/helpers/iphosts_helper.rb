@@ -1,0 +1,2 @@
+module IphostsHelper
+end
