@@ -4,11 +4,19 @@
         <table>
             <tr>
                 <th><%= label_tag(:sig_name, 'Signature Name') %></th>
-                <td><%= text_field_tag(:sig_name) %></td>
+                <td><%= text_field_tag(:sig_name, params[:sig_name]) %></td>
             </tr>
             <tr>
                 <th><%= label_tag(:pri, 'Priority') %></th>
-                <td><%= text_field_tag(:pri) %></td>
+                <td><%= text_field_tag(:pri, params[:pri]) %></td>
+            </tr>
+            <tr>
+                <th><%= label_tag(:min_cnt, 'Min Count') %></th>
+                <td><%= text_field_tag(:min_cnt, params[:min_cnt]) %></td>
+            </tr>
+            <tr>
+                <th><%= label_tag(:max_cnt, 'Max Count') %></th>
+                <td><%= text_field_tag(:max_cnt, params[:max_cnt]) %></td>
             </tr>
             <tr>
                 <th><%= submit_tag("Filter") %></th>
@@ -23,8 +31,8 @@
             <th>sig</th>
             <th>cls</th>
             <th>pri</th>
-            <th>name</th>
-            <th>count</th>
+            <th><%= order_control 'name', :field => 'sig_name' %></th>
+            <th><%= order_control 'count', :field => 'event_count' %></th>
         </tr>
         <%= render(:partial => "signature_row", :collection =>  @signatures) %>
     </table>

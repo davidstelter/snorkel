@@ -19,8 +19,6 @@ class SignaturesController < ApplicationController
     cond_string = []
     cond_hash   = {}
   
- #   if params[:cnt_thresh] && params[:cnt_thresh].length > 0
- #     cond_string << "
     if params[:sig_name] && params[:sig_name].length > 0
       cond_string << "sig_name ILIKE :name"
       cond_hash[:name] = "%#{params[:sig_name]}%"
@@ -29,6 +27,16 @@ class SignaturesController < ApplicationController
     if params[:pri] && params[:pri].length > 0
       cond_string << "sig_priority = :pri"
       cond_hash[:pri] = "#{params[:pri]}"
+    end
+
+    if params[:min_cnt] && params[:min_cnt].length > 0
+      cond_string << "event_count >= :min_cnt"
+      cond_hash[:min_cnt] = "#{params[:min_cnt]}"
+    end
+
+    if params[:max_cnt] && params[:max_cnt].length > 0
+      cond_string << "event_count <= :max_cnt"
+      cond_hash[:max_cnt] = "#{params[:max_cnt]}"
     end
 
     conditions = cond_string.join(" AND ")
