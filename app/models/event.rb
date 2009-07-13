@@ -12,10 +12,11 @@ class Event < ActiveRecord::Base
   belongs_to :sensor,
              :class_name  => "Sensor",
              :foreign_key => "sid"
-#TODO: make sure this is really has_one!
   has_one    :iphdr, 
              :class_name  => "Iphdr", 
              :foreign_key => [:sid, :cid]
+
+  named_scope :min_count_by_sig, lambda { |cnt| {:select => 'signature', :group => 'signature', :having => "count(*) >= #{cnt}" } }
 
   def sig_id
     self.signature.sig_id
