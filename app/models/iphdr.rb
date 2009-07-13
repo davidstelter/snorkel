@@ -4,33 +4,33 @@
 
 class Iphdr < ActiveRecord::Base
   set_table_name "iphdr"
-  set_primary_keys :cid, :sid
+  set_primary_keys :sid, :cid
 
 # for some reason, belongs_to doesn't work here...
 # method event below is a workaround
 #  belongs_to :event,
 #             :class_name  => "Event",
-#             :foreign_key => [:cid, :sid],
+#             :foreign_key => [:sid, :cid],
   has_one    :data,
              :class_name  => "DataTab",
-             :foreign_key => [:cid, :sid]
+             :foreign_key => [:sid, :cid]
   has_one    :tcphdr,
              :class_name  => "Tcphdr",
-             :foreign_key => [:cid, :sid]
+             :foreign_key => [:sid, :cid]
   has_one    :udphdr,
              :class_name  => "Udphdr",
-             :foreign_key => [:cid, :sid] 
+             :foreign_key => [:sid, :cid] 
   has_one    :icmphdr,
              :class_name  => "Icmphdr",
-             :foreign_key => [:cid, :sid] 
+             :foreign_key => [:sid, :cid] 
   has_many   :opt,
              :class_name  => "Opt",
-             :foreign_key => [:cid, :sid]
+             :foreign_key => [:sid, :cid]
 
 #workaround method for broken belongs_to
   def event 
-      @event = Event.find(:first, :conditions => "sid = #{sid} and cid = #{cid}") unless @event
-      @event
+    @event = Event.find(:first, :conditions => "sid = #{sid} and cid = #{cid}") unless @event
+    @event
   end
 
   def Iphdr.find_by_src_ip_string(ip_string)
