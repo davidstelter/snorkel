@@ -1,0 +1,44 @@
+<div class="detail-left">
+    <h2>Alert Detail for <%=h @alert.sid %>,<%=h @alert.cid %></h2>
+    <table>
+        <tr>
+            <th>Signature</th>
+            <td><%=h @alert.sig_name %></td>
+        </tr>
+        <tr>
+            <th>SigID</th>
+            <td><%= link_to @alert.sig_id, 
+                :controller => "signatures", :action => "detail", :id => @alert.sig_id %></td>
+        </tr>
+        <tr>
+            <th>Sensor</th>
+            <td><%=h @alert.sid %></td>
+        </tr>
+        <tr>
+            <th>CID</th>
+            <td><%=h @alert.cid %></td>
+        </tr>
+        <tr>
+            <th>Timestamp</th>
+            <td><%=h @alert.timestamp %></td>
+        </tr>
+        <tr>
+            <th>Source</th>
+            <td><%= link_to @alert.ip_src_string, 
+                :controller => 'iphosts', :action => 'detail', :id => @alert.ip_src_string %> 
+                (<%=h @alert.ip_src_dns %>)
+            </td>
+        </tr>
+        <tr>
+            <th>Destination</th>
+            <td><%= link_to @alert.ip_dst_string, 
+                :controller => 'iphosts', :action => 'detail', :id => @alert.ip_dst_string %> 
+                (<%=h @alert.ip_dst_dns %>)
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="detail-right">
+<%= packet_headers @alert.iphdr %>
+</div>
+
