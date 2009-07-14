@@ -3,12 +3,12 @@
 # Please see the file COPYING in the root source directory for details
 
 class IpHost
-  attr_reader :as_src, :as_dst, :ip_string
+  attr_reader :alerts_as_src, :alerts_as_dst, :ip_string
 
   def initialize(ip_str)
     @ip_string = ip_str
-    @as_src = Iphdr.find_by_src_ip_string(ip_str)
-    @as_dst = Iphdr.find_by_dst_ip_string(ip_str)
+    @alerts_as_src = Alert.find_by_src_ip_string(ip_str)
+    @alerts_as_dst = Alert.find_by_dst_ip_string(ip_str)
   end
 
   def hostname

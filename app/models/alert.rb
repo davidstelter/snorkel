@@ -33,6 +33,17 @@ class Alert < ActiveRecord::Base
   has_many   :opt,
              :class_name  => "Opt",
              :foreign_key => [:sid, :cid]
+
+  def Alert.find_by_src_ip_string(ip_string)
+    ip_int = Iphdr.ip_string_to_int(ip_string)
+    Alert.find(:all, :conditions => "ip_src = #{ip_int}")
+  end
+
+  def Alert.find_by_dst_ip_string(ip_string)
+    ip_int = Iphdr.ip_string_to_int(ip_string)
+    Alert.find(:all, :conditions => "ip_dst = #{ip_int}")
+  end 
+
   def ip_src_dns
     IpHost.reverse_dns(self.ip_src_string)
   end
