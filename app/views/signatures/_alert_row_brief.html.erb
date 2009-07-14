@@ -1,0 +1,25 @@
+<tr>
+    <td class="num-cell">
+        <%= link_to alert_row_brief.to_param, 
+            :controller => "alerts", 
+            :action => "detail", 
+            :id => alert_row_brief.to_param 
+        %>
+    </td>
+    <td class="timestamp"><%=h alert_row_brief.timestamp %></td>
+    <td class="ip-cell">
+        <%= link_to alert_row_brief.iphdr.ip_src_string,
+            :controller => "iphosts",
+            :action => "detail",
+            :id => alert_row_brief.iphdr.ip_src_string 
+            %>
+    </td>
+    <td class="ip-cell">
+        <%= link_to alert_row_brief.iphdr.ip_dst_string,
+            :controller => "iphosts",
+            :action => "detail",
+            :id => alert_row_brief.iphdr.ip_dst_string 
+            %>
+    </td>
+</tr>
+

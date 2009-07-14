@@ -8,6 +8,9 @@ class Signature < ActiveRecord::Base
   belongs_to :sig_class,
              :class_name  => "SigClass",
              :foreign_key => "sig_class_id"
+  has_many   :alerts,
+             :class_name  => "Alert",
+             :foreign_key => "sig_id"
   has_many   :events,
              :class_name  => "Event",
              :foreign_key => "signature"
