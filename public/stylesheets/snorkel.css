@@ -170,28 +170,6 @@ th {
     border-right: solid 1px;
 }
 
-/*.packet-header td{
-    background: #ddd;
-    font-family: "mono";
-}
-*/
 .data-tab td{
     font-size: 12px;
 }
-
-/*.packet-header th {
-    font-size: 10px;
-    border-top: solid 1px;
-    border-left: solid 1px;
-    border-right: solid 1px;
-    border-bottom: dotted 1px;
-}
-*/
-/*.packet-header caption {
-    font-size: 11px;
-    font-weight: bold;
-    border-top: solid 2px;
-    border-right: solid 2px;
-    border-left: solid 2px;
-}
-*/
