@@ -51,7 +51,7 @@ th {
     float: left;
    /* border: solid 1px; */
     -moz-border-radius: 7px;
-    background: #def;
+    background: #ddd;
 }
 .detail-left, .summary-left {
     padding: 10px;
@@ -87,7 +87,7 @@ th {
 #stats {
  /*   border: solid 1px;*/
     -moz-border-radius: 7px;
-    background: #ddf;
+    background: #ddd;
 }
 
 .num-cell {
@@ -114,12 +114,6 @@ th {
 
 /* packet header tables */
 
-#scroller {
-    width: 338px;
-    height: 200px; 
-    overflow: auto; 
-}
-
 #packet-headers {
   /*  position: relative;
     left: 50%; 
@@ -136,6 +130,12 @@ th {
     width: 340px; 
     border: solid 2px;
     border-collapse: collapse; 
+}
+
+#scroller {
+    width: 336px;
+    height: 200px; 
+    overflow: auto; 
 }
 
 #scrolltab {
