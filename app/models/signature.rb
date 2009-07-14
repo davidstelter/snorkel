@@ -26,7 +26,7 @@ class Signature < ActiveRecord::Base
     if self.sig_class
       self.sig_class.sig_class_name
     else
-      'Unclassified'
+      'unclassified'
     end
   end
 

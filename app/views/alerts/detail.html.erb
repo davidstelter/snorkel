@@ -6,13 +6,13 @@
             <td><%=h @alert.sig_name %></td>
         </tr>
         <tr>
-            <th>SigID</th>
-            <td><%= link_to @alert.sig_id, 
+            <th>SID</th>
+            <td><%= link_to @alert.signature.sig_sid, 
                 :controller => "signatures", :action => "detail", :id => @alert.sig_id %></td>
         </tr>
         <tr>
             <th>Sensor</th>
-            <td><%=h @alert.sid %></td>
+            <td>ID:<%=h @alert.sid %> Hostname:<%= h @alert.sensor.hostname %> iface:<%= h @alert.sensor.interface %></td>
         </tr>
         <tr>
             <th>CID</th>
