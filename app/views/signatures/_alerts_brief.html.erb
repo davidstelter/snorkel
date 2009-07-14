@@ -1,12 +1,12 @@
     <table>
-        <caption>Events</caption>
+        <caption>Alerts</caption>
         <tr>
             <th>sid:cid</th>
             <th>time</th>
             <th>source</th>
             <th>dest</th>
         </tr>
-        <%= render(:partial => "event_row_brief", :collection =>  @events) %>
+        <%= render(:partial => "alert_row_brief", :collection =>  @alerts) %>
     </table>
     <hr/>
     <%= pager_control @pager %>
