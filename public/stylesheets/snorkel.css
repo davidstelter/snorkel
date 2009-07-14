@@ -105,7 +105,7 @@ th {
 
 /* order_control */
 .up-img, .dn-img {
-    margin: 0 5px;
+    margin: 0 2px;
 }
 .up-img {float: left;}
 .dn-img {float: right;}
@@ -119,8 +119,8 @@ th {
     left: 50%; 
     right: 0;*/
     width: 340px;
-    margin: 10px;
-    padding: 10px;
+    margin: 0px;
+    padding: 0px;
     background: #ddd;
     -moz-border-radius: 7px;
 }
