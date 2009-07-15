@@ -3,11 +3,15 @@
         <th colspan=2>Totals</th>
         <tr>
             <th>Alerts</th>
-            <td class="num-cell"><%=h event_count %></td>
+            <td class="num-cell"><%=link_to event_count,
+                :controller => 'alerts',
+                :action => 'summary' %></td>
         </tr>
         <tr>
             <th>Signatures</th>
-            <td class="num-cell"><%=h sig_count %></td>
+            <td class="num-cell"><%=link_to sig_count,
+                :controller => 'signatures',
+                :action => 'summary' %></td>
         </tr>
         <tr>
             <th>Source IPs</th>
