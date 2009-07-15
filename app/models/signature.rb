@@ -21,7 +21,16 @@ class Signature < ActiveRecord::Base
              :through     => :sig_references,
              :source      => :reference
 
-#  named_scope :with_ip_src, lambda { |ip_str| { 
+  named_scope :with_ip_src, lambda { |ip_str| {
+              :joins => :alerts,
+              :conditions => ['alert.ip_src = ?', Iphdr.ip_string_to_int(ip_str)]
+            } }
+
+  named_scope :with_ip_dst, lambda { |ip_str| {
+              :joins => :alerts,
+              :conditions => ['alert.ip_dst = ?', Iphdr.ip_string_to_int(ip_str)]
+            } }
+
 
   def class_name
     if self.sig_class
