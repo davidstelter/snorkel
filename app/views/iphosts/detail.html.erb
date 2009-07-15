@@ -1,2 +1,40 @@
-<h1>Iphosts#detail</h1>
-<p>Find me in app/views/iphosts/detail.html.erb</p>
+<div class="detail-left">
+    <h2>IP Host Detail for <%=h @iphost.ip_string %></h2>
+    <table>
+        <tr>
+            <th>Alerts as Source</th>
+            <td><%=h @iphost.alerts_as_src.count %></td>
+        </tr>
+        <tr>
+            <th>Alerts as Dest</th>
+            <td><%=h @iphost.alerts_as_dst.count %></td>
+        </tr>
+        <tr>
+            <th>Signatures as Source</th>
+            <td><%=h @iphost.signatures_as_src.count %></td>
+        </tr>
+         <tr>
+            <th>Signatures as Dest</th>
+            <td><%=h @iphost.signatures_as_dst.count %></td>
+        </tr>
+        <tr>
+            <th>First Seen as Src</th>
+            <td><%=link_to @fe_as_src.timestamp, :controller => 'alerts', :action => 'detail', :id => @fe_as_src.to_param %></td>
+        </tr>
+        <tr>
+            <th>Last Seen as Src</th>
+            <td><%=link_to @le_as_src.timestamp, :controller => 'alerts', :action => 'detail', :id => @le_as_src.to_param %></td>
+        </tr>
+        <tr>
+            <th>First Seen as Dst</th>
+            <td><%=link_to @fe_as_dst.timestamp, :controller => 'alerts', :action => 'detail', :id => @fe_as_dst.to_param %></td>
+        </tr>
+        <tr>
+            <th>Last Seen as Dst</th>
+            <td><%=link_to @le_as_dst.timestamp, :controller => 'alerts', :action => 'detail', :id => @le_as_dst.to_param %></td>
+        </tr>
+    </table>
+</div>
+<div class="detail-right">
+</div>
+

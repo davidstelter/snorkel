@@ -39,6 +39,8 @@ ActionController::Routing::Routes.draw do |map|
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing the them or commenting them out if you're using named routes and resources.
   map.root :controller => 'signatures', :action => 'summary'
+  map.connect 'iphosts/detail/:id',
+    :controller => "iphosts", :action => "detail", :requirements => {:id => /\d+\.\d+\.\d+\.\d+/}
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
 end

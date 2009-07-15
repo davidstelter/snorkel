@@ -26,6 +26,9 @@ class Iphdr < ActiveRecord::Base
   has_many   :opt,
              :class_name  => "Opt",
              :foreign_key => [:sid, :cid]
+  
+  named_scope :with_ip_src, lambda { |ip_str| {:conditions => ["ip_src = ?", Iphdr.ip_string_to_int(ip_str)] } }
+  named_scope :with_ip_dst, lambda { |ip_str| {:conditions => ["ip_dst = ?", Iphdr.ip_string_to_int(ip_str)] } }
 
 #workaround method for broken belongs_to
   def event 

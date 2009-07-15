@@ -34,6 +34,9 @@ class Alert < ActiveRecord::Base
              :class_name  => "Opt",
              :foreign_key => [:sid, :cid]
 
+  named_scope :with_ip_src,  lambda { |ip_string| { :conditions => ["ip_src = ?", Iphdr.ip_string_to_int(ip_string) ] } } 
+  named_scope :with_ip_dst,  lambda { |ip_string| { :conditions => ["ip_dst = ?", Iphdr.ip_string_to_int(ip_string) ] } } 
+
   def Alert.find_by_src_ip_string(ip_string)
     ip_int = Iphdr.ip_string_to_int(ip_string)
     Alert.find(:all, :conditions => "ip_src = #{ip_int}")

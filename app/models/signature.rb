@@ -21,6 +21,7 @@ class Signature < ActiveRecord::Base
              :through     => :sig_references,
              :source      => :reference
 
+#  named_scope :with_ip_src, lambda { |ip_str| { 
 
   def class_name
     if self.sig_class
@@ -45,6 +46,31 @@ class Signature < ActiveRecord::Base
   end
 
   def Signature.with_min_alerts(count)
-    Signature.find_by_sql(["select * from signature where sig_id in (select signature from event group by event.signature having count(*) >= ?);", count])
+    Signature.find_by_sql([%{
+      SELECT * FROM signature 
+      WHERE sig_id IN 
+        (SELECT signature FROM event 
+         GROUP BY event.signature 
+         HAVING count(*) >= ?)
+    }, count])
   end
+
+  def Signature.with_ip_src(ip_str)
+    Signature.find_by_sql(%{
+      SELECT DISTINCT s.* 
+      FROM signature s JOIN event e ON s.sig_id = e.signature 
+      JOIN iphdr ip ON e.sid = ip.sid AND e.cid = ip.cid 
+      WHERE ip.ip_src = #{Iphdr.ip_string_to_int(ip_str)}
+    })
+  end
+
+  def Signature.with_ip_dst(ip_str)
+    Signature.find_by_sql(%{
+      SELECT DISTINCT s.* 
+      FROM signature s JOIN event e ON s.sig_id = e.signature 
+      JOIN iphdr ip ON e.sid = ip.sid AND e.cid = ip.cid 
+      WHERE ip.ip_dst = #{Iphdr.ip_string_to_int(ip_str)}
+    })
+  end
+
 end
