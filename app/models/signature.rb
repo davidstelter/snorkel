@@ -31,6 +31,29 @@ class Signature < ActiveRecord::Base
               :conditions => ['alert.ip_dst = ?', Iphdr.ip_string_to_int(ip_str)]
             } }
 
+  named_scope :with_participants, lambda { |*args|  
+    params = (args.first || {}); result = {}
+    if params[:ip_src] || params[:ip_dst]
+      result.merge!({:joins => :alerts, :select=> "distinct sig_with_event_count.*"})
+
+      if params[:ip_src] && params[:ip_dst]
+        result.merge!({:conditions => ['alert.ip_src = ? and alert.ip_dst = ?', 
+                      Iphdr.ip_string_to_int(params[:ip_src]),
+                      Iphdr.ip_string_to_int(params[:ip_dst]) ] } )
+      else
+        if params[:ip_src] 
+          result.merge!({:conditions => ['alert.ip_src = ?', Iphdr.ip_string_to_int(params[:ip_src])]})
+        else
+          result.merge!({:conditions => ['alert.ip_dst = ?', Iphdr.ip_string_to_int(params[:ip_dst])]})
+        end
+      end
+    end
+
+    return result
+  
+  }
+
+
 
   def class_name
     if self.sig_class

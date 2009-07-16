@@ -16,8 +16,10 @@ class SignaturesController < ApplicationController
 
     @summary_pager = Pager.new(Signature.count, params[:page])
 
-    cond_string = []
-    cond_hash   = {}
+    cond_string  = []
+    cond_hash    = {}
+    participants = {}
+
   
     if params[:sig_name] && params[:sig_name].length > 0
       cond_string << "sig_name ILIKE :name"
@@ -39,10 +41,18 @@ class SignaturesController < ApplicationController
       cond_hash[:max_cnt] = "#{params[:max_cnt]}"
     end
 
+    if params[:ip_src] && params[:ip_src].length > 0
+      participants.merge!({:ip_src => params[:ip_src]})
+    end  
+
+    if params[:ip_dst] && params[:ip_dst].length > 0
+      participants.merge!({:ip_dst => params[:ip_dst]})
+    end  
+
     conditions = cond_string.join(" AND ")
 
 
-      @signatures    = Signature.find(:all, 
+    @signatures = Signature.with_participants(participants).find(:all, 
                                       :limit      => @summary_pager.per_page,
                                       :offset     => @summary_pager.offset, 
                                       :order      => order,

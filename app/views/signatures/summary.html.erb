@@ -19,6 +19,13 @@
                 <td><%= text_field_tag(:max_cnt, params[:max_cnt]) %></td>
             </tr>
             <tr>
+                <th><%= label_tag(:ip_src, 'Source IP') %></th>
+                <td><%= text_field_tag(:ip_src, params[:ip_src]) %></td>
+            </tr><tr>
+                <th><%= label_tag(:ip_dst, 'Dest IP') %></th>
+                <td><%= text_field_tag(:ip_dst, params[:ip_dst]) %></td>
+            </tr>
+            <tr>
                 <th><%= submit_tag("Filter") %></th>
             </tr>
         </table>
