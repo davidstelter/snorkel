@@ -4,6 +4,11 @@
 
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+  
+  def link_to_unless_zero(link_text, params = {})
+    link_to_unless (link_text == 0), link_text, params
+  end
+
   def dump_params
     ps = ""
     request.params.each do |key, val|
