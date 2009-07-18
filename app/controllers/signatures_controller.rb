@@ -11,7 +11,8 @@ class SignaturesController < ApplicationController
       order = params[:order_desc]
       order += ' DESC'
     else
-      order = 'sig_id'
+      params[:order_desc] = 'event_count'
+      order = 'event_count DESC'
     end
 
     @summary_pager = Pager.new(Signature.count, params[:page])
