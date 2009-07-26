@@ -2,6 +2,10 @@
     <h2>IP Host Detail for <%=h @iphost.ip_string %></h2>
     <table>
         <tr>
+            <th>Reverse DNS</th>
+            <td><%=h @iphost.hostname %></td>
+        </tr>
+        <tr>
             <th>Activity Index</th>
             <td><%=h @iphost.act_idx %></td>
         </tr>
