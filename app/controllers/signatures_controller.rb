@@ -3,6 +3,8 @@
 # Please see the file COPYING in the root source directory for details
 
 class SignaturesController < ApplicationController
+  include ControllerCommon
+  
   def summary
 
     if params[:order]
@@ -22,31 +24,31 @@ class SignaturesController < ApplicationController
     participants = {}
 
   
-    if params[:sig_name] && params[:sig_name].length > 0
+    if pset params[:sig_name]
       cond_string << "sig_name ILIKE :name"
       cond_hash[:name] = "%#{params[:sig_name]}%"
     end
 
-    if params[:pri] && params[:pri].length > 0
+    if pset params[:pri]
       cond_string << "sig_priority = :pri"
       cond_hash[:pri] = "#{params[:pri]}"
     end
 
-    if params[:min_cnt] && params[:min_cnt].length > 0
+    if pset params[:min_cnt]
       cond_string << "event_count >= :min_cnt"
       cond_hash[:min_cnt] = "#{params[:min_cnt]}"
     end
 
-    if params[:max_cnt] && params[:max_cnt].length > 0
+    if pset params[:max_cnt]
       cond_string << "event_count <= :max_cnt"
       cond_hash[:max_cnt] = "#{params[:max_cnt]}"
     end
 
-    if params[:ip_src] && params[:ip_src].length > 0
+    if pset params[:ip_src]
       participants.merge!({:ip_src => params[:ip_src]})
     end  
 
-    if params[:ip_dst] && params[:ip_dst].length > 0
+    if pset params[:ip_dst]
       participants.merge!({:ip_dst => params[:ip_dst]})
     end  
 
