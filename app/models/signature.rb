@@ -32,19 +32,41 @@ class Signature < ActiveRecord::Base
             } }
 
   named_scope :with_participants, lambda { |*args|  
-    params = (args.first || {}); result = {}
+    params = (args.first || {})
+    result = {}
     if params[:ip_src] || params[:ip_dst]
       result.merge!({:joins => :alerts, :select=> "distinct sig_with_event_count.*"})
 
       if params[:ip_src] && params[:ip_dst]
-        result.merge!({:conditions => ['alert.ip_src = ? and alert.ip_dst = ?', 
-                      Iphdr.ip_string_to_int(params[:ip_src]),
-                      Iphdr.ip_string_to_int(params[:ip_dst]) ] } )
+        ip_src_lo = Iphdr.ip_string_to_int(params[:ip_src])
+        ip_src_hi = ip_src_lo
+        if params[:ip_src_mask]
+          ip_src_hi = ip_src_lo + 2 ** params[:ip_src].to_i - 1
+        end
+
+        ip_dst_lo = Iphdr.ip_string_to_int(params[:ip_dst]) 
+        ip_dst_hi = ip_dst_lo
+        if params[:ip_dst_mask]
+          ip_dst_hi = ip_dst_lo + 2 ** params[:ip_dst].to_i - 1
+        end
+        
+        result[:conditions] = ['alert.ip_src BETWEEN ? AND ? AND alert.ip_dst BETWEEN ? AND ?', 
+                                ip_src_lo, ip_src_hi, ip_dst_lo, ip_dst_hi ]        
       else
         if params[:ip_src] 
-          result.merge!({:conditions => ['alert.ip_src = ?', Iphdr.ip_string_to_int(params[:ip_src])]})
+          ip_lo = Iphdr.ip_string_to_int(params[:ip_src])
+          ip_hi = ip_lo
+          if params[:ip_src_mask]
+            ip_hi = ip_lo + 2 ** params[:ip_src_mask].to_i - 1
+          end 
+          result[:conditions] = ['alert.ip_src between ? and ?', ip_lo, ip_hi]
         else
-          result.merge!({:conditions => ['alert.ip_dst = ?', Iphdr.ip_string_to_int(params[:ip_dst])]})
+          ip_lo = Iphdr.ip_string_to_int(params[:ip_dst]) 
+          ip_hi = ip_lo
+          if params[:ip_dst_mask]
+            ip_hi = ip_lo + 2 ** params[:ip_dst_mask].to_i - 1
+          end 
+          result[:conditions] = ['alert.ip_dst BETWEEN ? AND ?', ip_lo, ip_hi]
         end
       end
     end

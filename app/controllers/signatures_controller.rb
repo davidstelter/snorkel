@@ -45,11 +45,17 @@ class SignaturesController < ApplicationController
     end
 
     if pset params[:ip_src]
-      participants.merge!({:ip_src => params[:ip_src]})
+      participants[:ip_src] = params[:ip_src]
+      if pset params[:ip_src_mask]
+        participants[:ip_src_mask] = params[:ip_src_mask]
+      end
     end  
 
     if pset params[:ip_dst]
-      participants.merge!({:ip_dst => params[:ip_dst]})
+      participants[:ip_dst] = params[:ip_dst]
+      if pset params[:ip_dst_mask]
+        participants[:ip_dst_mask] = params[:ip_dst_mask]
+      end
     end  
 
     conditions = cond_string.join(" AND ")
