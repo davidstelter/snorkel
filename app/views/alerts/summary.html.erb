@@ -29,11 +29,13 @@
             </tr>
             <tr>
                 <th><%= label_tag(:ip_src, 'Source IP') %></th>
-                <td><%= text_field_tag(:ip_src, params[:ip_src]) %></td>
+                <td><%= text_field_tag(:ip_src, params[:ip_src], :size => 15) %>
+                    /<%= text_field_tag(:ip_src_mask, params[:ip_src_mask], :size => 2) %></td>
             </tr>
             <tr>
                 <th><%= label_tag(:ip_dst, 'Dest IP') %></th>
-                <td><%= text_field_tag(:ip_dst, params[:ip_dst]) %></td>
+                <td><%= text_field_tag(:ip_dst, params[:ip_dst], :size => 15) %>
+                    /<%= text_field_tag(:ip_dst_mask, params[:ip_dst_mask], :size => 2) %></td>
             </tr> 
             <tr>
                 <th><%= label_tag(:proto, 'IP Proto') %></th>
