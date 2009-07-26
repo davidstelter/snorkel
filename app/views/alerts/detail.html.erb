@@ -26,6 +26,7 @@
             <th>Source</th>
             <td><%= link_to @alert.ip_src_string, 
                 :controller => 'iphosts', :action => 'detail', :id => @alert.ip_src_string %> 
+                </br>
                 (<%=h @alert.ip_src_dns %>)
             </td>
         </tr>
@@ -33,6 +34,7 @@
             <th>Destination</th>
             <td><%= link_to @alert.ip_dst_string, 
                 :controller => 'iphosts', :action => 'detail', :id => @alert.ip_dst_string %> 
+                </br>
                 (<%=h @alert.ip_dst_dns %>)
             </td>
         </tr>
