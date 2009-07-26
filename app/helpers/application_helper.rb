@@ -9,6 +9,12 @@ module ApplicationHelper
     link_to_unless (link_text == 0), link_text, params
   end
 
+  def cidr_select(name)
+    options = ""
+    (0..31).each { |num| options << "<option>#{num}</option>"}
+    select_tag(name, options)
+  end
+
   def dump_params
     ps = ""
     request.params.each do |key, val|
