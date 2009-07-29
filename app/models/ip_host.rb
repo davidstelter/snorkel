@@ -3,16 +3,8 @@
 # Please see the file COPYING in the root source directory for details
 
 class IpHost < ActiveRecord::Base
-  set_table_name "ip_host"
+  set_table_name "ip_host_cache"
   set_primary_key :ip_addr
-
-  #attr_reader :ip_string
-
-  #def initialize(ip_str)
-  #  @ip_string = ip_str
-  # @alerts_as_src_count = Alert.with_ip_src(ip_str).count
-  # @alerts_as_dst_count = Alert.with_ip_dst(ip_str).count
-  #end
 
   def IpHost.find_by_ip_string(ip_str)
     IpHost.find(Iphdr.ip_string_to_int(ip_str))
