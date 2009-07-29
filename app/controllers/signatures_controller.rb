@@ -69,13 +69,22 @@ class SignaturesController < ApplicationController
   end
 
   def detail 
-    @order     = params[:order] || 'timestamp'
+    if params[:order]
+      order = params[:order]
+    elsif params[:order_desc]
+      order = params[:order_desc]
+      order += ' DESC'
+    else
+      params[:order_desc] = 'timestamp'
+      order = 'timestamp DESC'
+    end
+    #@order     = params[:order] || 'timestamp'
     @signature = Signature.find(params[:id])
     @pager     = Pager.new(@signature.alerts.count, params[:page])
     @alerts    = @signature.alerts.find(:all, 
                                         :limit  => @pager.per_page,
                                         :offset => @pager.offset,
-                                        :order  => @order)
+                                        :order  => order)
   end
 
 end

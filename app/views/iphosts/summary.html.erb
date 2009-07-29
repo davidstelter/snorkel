@@ -1,2 +1,62 @@
-<h1>Iphosts#summary</h1>
-<p>Find me in app/views/iphosts/summary.html.erb</p>
+<div class="summary-left">
+    <h2>IP Host Filter</h2>
+    <% form_tag({:controller => 'iphosts', :action => 'summary'}, :method => 'get') do %>
+        <table>
+            <tr>
+                <th><%= label_tag(:network, 'Network') %></th>
+                <td><%= text_field_tag(:network, params[:network] || '0.0.0.0/0') %></td>
+            </tr>
+            <tr>
+                <th><%= label_tag(:pri, 'Priority') %></th>
+                <td><%= text_field_tag(:pri, params[:pri]) %></td>
+            </tr>
+            <tr>
+                <th><%= label_tag(:min_idx, 'Min Activity Index') %></th>
+                <td><%= text_field_tag(:min_idx, params[:min_idx]) %></td>
+            </tr>
+            <tr>
+                <th><%= label_tag(:max_idx, 'Max Activity Index') %></th>
+                <td><%= text_field_tag(:max_idx, params[:max_idx]) %></td>
+            </tr>
+
+            <tr>
+                <th><%= label_tag(:min_sig, 'Min Signature Count') %></th>
+                <td><%= text_field_tag(:min_sig, params[:min_sig]) %></td>
+            </tr>
+            <tr>
+                <th><%= label_tag(:max_sig, 'Max Signature Count') %></th>
+                <td><%= text_field_tag(:max_sig, params[:max_sig]) %></td>
+            </tr>
+
+            <tr>
+                <th><%= label_tag(:min_alert, 'Min Alert Count') %></th>
+                <td><%= text_field_tag(:min_alert, params[:min_alert]) %></td>
+            </tr>
+            <tr>
+                <th><%= label_tag(:max_alert, 'Max Alert Count') %></th>
+                <td><%= text_field_tag(:max_alert, params[:max_alert]) %></td>
+            </tr>
+            <tr>
+                <th><%= submit_tag("Filter") %></th>
+            </tr>
+        </table>
+    <% end %>
+</div>
+<div class="summary-right">
+    <h2>IP Hosts</h2>
+    <table id="iphost-table">
+        <tr>
+            <th><%= order_control 'address', :field => 'ip_addr' %></th>
+            <th><%= order_control 'rev dns', :field => 'hostname' %></th>
+            <th><%= order_control 'first', :field => 'first_seen' %></th>
+            <th><%= order_control 'last', :field => 'last_seen' %></th>
+            <th><%= order_control 'src ev count', :field => 'src_ev_cnt' %></th>
+            <th><%= order_control 'dst ev count', :field => 'dst_ev_cnt' %></th>
+            <th><%= order_control 'src sig count', :field => 'src_sig_cnt' %></th>
+            <th><%= order_control 'dst sig count', :field => 'dst_sig_cnt' %></th>
+        </tr>
+        <%= render(:partial => "iphost_row", :collection =>  @iphosts) %>
+    </table>
+    <hr/>
+    <div id="pager-ctl"><%= pager_control @summary_pager %></div>
+</div>

@@ -23,6 +23,11 @@ class Event < ActiveRecord::Base
   named_scope :earliest, :limit => 1, :order => 'timestamp'
   named_scope :latest, :limit => 1, :order => 'timestamp DESC'
 
+# tell whether self is older than other, reckoned by their timestamps
+  def older?(other)
+    self.timestamp < other.timestamp
+  end
+
   def sig_id
     self.signature.sig_id
   end

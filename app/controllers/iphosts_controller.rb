@@ -31,15 +31,15 @@ class IphostsController < ApplicationController
     if params[:id]
       @iphost = IpHost.find_by_ip_string(params[:id])
 
-      @fe_as_src = Event.with_ip_src(@iphost.ip_string).earliest.first
-      @le_as_src = Event.with_ip_src(@iphost.ip_string).latest.first
-      @fe_as_dst = Event.with_ip_dst(@iphost.ip_string).earliest.first
-      @le_as_dst = Event.with_ip_dst(@iphost.ip_string).latest.first
+      @fe_as_src = @iphost.first_event_as_src
+      @le_as_src = @iphost.last_event_as_src 
+      @fe_as_dst = @iphost.first_event_as_dst
+      @le_as_dst = @iphost.last_event_as_dst 
 
-      @fe_as_src_timestamp = @fe_as_src ? @fe_as_src.timestamp : "Never"
-      @le_as_src_timestamp = @le_as_src ? @le_as_src.timestamp : "Never"
-      @fe_as_dst_timestamp = @fe_as_dst ? @fe_as_dst.timestamp : "Never"
-      @le_as_dst_timestamp = @le_as_dst ? @le_as_dst.timestamp : "Never"
+      @fe_as_src_timestamp = @iphost.first_seen_as_src ? @iphost.first_seen_as_src : "Never"
+      @le_as_src_timestamp = @iphost.last_seen_as_src  ? @iphost.last_seen_as_src  : "Never"
+      @fe_as_dst_timestamp = @iphost.first_seen_as_dst ? @iphost.first_seen_as_dst : "Never"
+      @le_as_dst_timestamp = @iphost.last_seen_as_dst  ? @iphost.last_seen_as_dst  : "Never"
 
     end
   end
