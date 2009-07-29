@@ -1,7 +1,32 @@
 <tr>
-    <td><%=h iphost_row.ip_string %></td>
-    <td><%=h iphost_row.hostname %></td>
-    <td><%=h iphost_row.first_seen %></td>
-    <td><%=h iphost_row.last_seen %></td> 
+    <td><%=link_to iphost_row.ip_string,
+        :controller => 'iphosts',
+        :action => 'detail',
+        :id => iphost_row.ip_string %></td>
+    <td><%=link_to iphost_row.first_seen,
+        :controller => 'alerts',
+        :action => 'detail',
+        :id => iphost_row.first_event %></td>
+    <td><%=link_to iphost_row.last_seen,
+        :controller => 'alerts',
+        :action => 'detail',
+        :id => iphost_row.last_event %></td> 
+    <td><%=link_to_unless_zero iphost_row.src_ev_cnt,
+        :controller => 'alerts',
+        :action => 'summary',
+        :ip_src => iphost_row.ip_string %></td>
+    <td><%=link_to_unless_zero iphost_row.dst_ev_cnt,
+        :controller => 'alerts',
+        :action => 'summary',
+        :ip_dst => iphost_row.ip_string %></td>
+    <td><%=link_to_unless_zero iphost_row.src_sig_cnt,
+        :controller => 'signatures',
+        :action => 'summary',
+        :ip_src => iphost_row.ip_string %></td>
+    <td><%=link_to_unless_zero iphost_row.dst_sig_cnt,
+        :controller => 'signatures',
+        :action => 'summary',
+        :ip_dst => iphost_row.ip_string %></td>
+    <td><%=h iphost_row.act_idx %></td>
 </tr>
 

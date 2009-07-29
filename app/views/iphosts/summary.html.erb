@@ -47,13 +47,13 @@
     <table id="iphost-table">
         <tr>
             <th><%= order_control 'address', :field => 'ip_addr' %></th>
-            <th><%= order_control 'rev dns', :field => 'hostname' %></th>
             <th><%= order_control 'first', :field => 'first_seen' %></th>
             <th><%= order_control 'last', :field => 'last_seen' %></th>
-            <th><%= order_control 'src ev count', :field => 'src_ev_cnt' %></th>
-            <th><%= order_control 'dst ev count', :field => 'dst_ev_cnt' %></th>
-            <th><%= order_control 'src sig count', :field => 'src_sig_cnt' %></th>
-            <th><%= order_control 'dst sig count', :field => 'dst_sig_cnt' %></th>
+            <th><%= order_control 'src evs', :field => 'src_ev_cnt' %></th>
+            <th><%= order_control 'dst evs', :field => 'dst_ev_cnt' %></th>
+            <th><%= order_control 'src sigs', :field => 'src_sig_cnt' %></th>
+            <th><%= order_control 'dst sigs', :field => 'dst_sig_cnt' %></th>
+            <th><%= order_control 'act idx', :field => 'act_idx' %></th>
         </tr>
         <%= render(:partial => "iphost_row", :collection =>  @iphosts) %>
     </table>
