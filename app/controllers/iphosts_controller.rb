@@ -1,4 +1,6 @@
 class IphostsController < ApplicationController
+  include ControllerCommon
+
   def summary
 
     if params[:order]
@@ -15,7 +17,14 @@ class IphostsController < ApplicationController
 
     cond_string  = []
     cond_hash    = {}
-    
+   
+    if (pset params[:net_addr]) && (pset params[:net_mask])
+      cond_string << "ip_addr BETWEEN :min_ip AND :max_ip"
+      lo_ip = Iphdr.ip_string_to_int(params[:net_addr])
+      hi_ip = lo_ip + 2 ** params[:net_mask].to_i - 1
+      cond_hash[:min_ip] = lo_ip 
+      cond_hash[:max_ip] = hi_ip
+    end
 
     conditions = cond_string.join(" AND ")
 

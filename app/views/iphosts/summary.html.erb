@@ -4,7 +4,7 @@
         <table>
             <tr>
                 <th><%= label_tag(:network, 'Network') %></th>
-                <td><%= text_field_tag(:network, params[:network] || '0.0.0.0/0') %></td>
+                <td><%= text_field_tag(:net_addr, (params[:net_addr] || '0.0.0.0'), :size => 15) %>/<%= text_field_tag(:net_mask, (params[:net_mask] || '0'), :size => 2) %></td>
             </tr>
             <tr>
                 <th><%= label_tag(:pri, 'Priority') %></th>
