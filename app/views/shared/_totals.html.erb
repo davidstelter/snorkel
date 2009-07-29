@@ -15,11 +15,15 @@
         </tr>
         <tr>
             <th>Source IPs</th>
-            <td class="num-cell"><%=h src_ip_count %></td>
+            <td class="num-cell"><%=link_to src_ip_count,
+                :controller => 'iphosts',
+                :action => 'summary' %></td>
         </tr>
         <tr>
             <th>Dest IPs</th>
-            <td class="num-cell"><%=h dst_ip_count %></td>
+            <td class="num-cell"><%= link_to dst_ip_count,
+                :controller => 'iphosts',
+                :action => 'summry' %></td>
         </tr>
     </table>
 </div>
