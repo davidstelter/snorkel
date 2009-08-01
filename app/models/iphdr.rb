@@ -8,22 +8,27 @@ class Iphdr < ActiveRecord::Base
 
 # for some reason, belongs_to doesn't work here...
 # method event below is a workaround
-#  belongs_to :event,
-#             :class_name  => "Event",
-#             :foreign_key => [:sid, :cid],
+  belongs_to :event,
+             :class_name  => "Event",
+             :foreign_key => [:sid, :cid]
   has_one    :data,
+             :dependent   => :destroy,
              :class_name  => "DataTab",
              :foreign_key => [:sid, :cid]
   has_one    :tcphdr,
+             :dependent   => :destroy,
              :class_name  => "Tcphdr",
              :foreign_key => [:sid, :cid]
   has_one    :udphdr,
+             :dependent   => :destroy,
              :class_name  => "Udphdr",
              :foreign_key => [:sid, :cid] 
   has_one    :icmphdr,
+             :dependent   => :destroy,
              :class_name  => "Icmphdr",
              :foreign_key => [:sid, :cid] 
-  has_many   :opt,
+  has_one    :opt,
+             :dependent   => :destroy,
              :class_name  => "Opt",
              :foreign_key => [:sid, :cid]
   
@@ -31,10 +36,10 @@ class Iphdr < ActiveRecord::Base
   named_scope :with_ip_dst, lambda { |ip_str| {:conditions => ["ip_dst = ?", Iphdr.ip_string_to_int(ip_str)] } }
 
 #workaround method for broken belongs_to
-  def event 
-    @event = Event.find(:first, :conditions => "sid = #{sid} and cid = #{cid}") unless @event
-    @event
-  end
+  #def event 
+  #  @event = Event.find(:first, :conditions => "sid = #{sid} and cid = #{cid}") unless @event
+  #  @event
+  #end
 
   def Iphdr.find_by_src_ip_string(ip_string)
     ip_int = Iphdr.ip_string_to_int(ip_string)
