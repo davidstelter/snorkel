@@ -26,5 +26,16 @@
                 :action => 'summry' %></td>
         </tr>
     </table>
+    <table id="cache">
+        <tr>
+            <th>Host Cache</th>
+            <td><% form_remote_tag :url => { :controller => 'cache', :action => 'update'} do %>
+                    <%= submit_tag "Update Cache" %><% end %></td>
+        </tr>
+        <tr>
+            <th>Updated</th>
+            <td><span id="cache_update"><%= render(:partial => "shared/cache_update") %></span></td>
+        </tr>
+    </table>
 </div>
 

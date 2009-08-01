@@ -42,6 +42,13 @@ th {
     border-bottom: dotted 1px;
 }
 
+#cache {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 14px;
+}
+
 #main {
     background: gray;
     -moz-border-radius: 7px;
