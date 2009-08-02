@@ -43,7 +43,7 @@
     <% end %>
 </div>
 <div class="summary-right">
-    <h2>IP Hosts</h2>
+    <h2>Viewing <%= pager_counts @summary_pager %> IP Hosts</h2>
     <table id="iphost-table">
         <tr>
             <th><%= order_control 'address', :field => 'ip_addr' %></th>

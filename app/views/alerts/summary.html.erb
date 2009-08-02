@@ -47,7 +47,7 @@
 </div>
 
 <div class="summary-right">
-    <h2>Viewing <%= @summary_pager.first_item %> to <%= @summary_pager.last_item %> of <%= @filter_count %> Alerts</h2>
+    <h2>Viewing <%= pager_counts @summary_pager %> Alerts</h2>
     <table id="alert-table">
         <tr>
             <th>sens:cid</th>
