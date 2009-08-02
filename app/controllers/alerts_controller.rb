@@ -93,19 +93,19 @@ class AlertsController < ApplicationController
     conditions = cond_string.join(" AND ")
 
 
-  #  @filter_count = Alert.find(:all, :conditions => [ conditions, cond_hash ]).count
-    page_offset = 0
-    if pset params[:page]
-      page_offset = (params[:page].to_i - 1) * Pager.per_page
-    end
+    count = Alert.count(:conditions => [ conditions, cond_hash ])
+    @summary_pager  = Pager.new(count, params[:page])
+   # page_offset = 0
+   # if pset params[:page]
+   #   page_offset = (params[:page].to_i - 1) * Pager.per_page
+   # end
 
     @alerts    = Alert.find(:all, 
-                            :limit      => Pager.per_page, 
-                            :offset     => page_offset, 
+                            :limit      => @summary_pager.per_page, 
+                            :offset     => @summary_pager.offset, 
                             :order      => order,
                             :conditions => [ conditions, cond_hash ])
 
-    @summary_pager  = Pager.new(@alerts.count, params[:page])
     
   end
 

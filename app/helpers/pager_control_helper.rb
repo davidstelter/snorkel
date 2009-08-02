@@ -34,6 +34,10 @@ module PagerControlHelper
       lower = pager.page - n
       upper = pager.page + n
     end
+    
+    if upper > pager.page_cnt
+      upper = pager.page_cnt
+    end
 
     for page in lower..upper
       @output << link_to_unless(page == pager.page, page.to_s, params.merge(:page => page))
