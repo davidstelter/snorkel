@@ -3,11 +3,11 @@
         :controller => 'iphosts',
         :action => 'detail',
         :id => iphost_row.ip_string %></td>
-    <td><%=link_to iphost_row.first_seen,
+    <td><%=link_to fmtdate(iphost_row.first_seen),
         :controller => 'alerts',
         :action => 'detail',
         :id => iphost_row.first_event %></td>
-    <td><%=link_to iphost_row.last_seen,
+    <td><%=link_to fmtdate(iphost_row.last_seen),
         :controller => 'alerts',
         :action => 'detail',
         :id => iphost_row.last_event %></td> 

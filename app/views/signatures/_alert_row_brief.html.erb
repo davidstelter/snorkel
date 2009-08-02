@@ -6,7 +6,7 @@
             :id => alert_row_brief.to_param 
         %>
     </td>
-    <td class="timestamp"><%=h alert_row_brief.timestamp %></td>
+    <td class="timestamp"><%=h fmtdate alert_row_brief.timestamp %></td>
     <td class="ip-cell">
         <%= link_to alert_row_brief.iphdr.ip_src_string,
             :controller => "iphosts",
