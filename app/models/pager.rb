@@ -22,7 +22,7 @@ class Pager
 
     @@per_page = per_page
     @page_cnt = (item_cnt / per_page)
-    if (item_cnt % per_page)
+    if (item_cnt % per_page > 0)
       @page_cnt += 1
     end
   end
