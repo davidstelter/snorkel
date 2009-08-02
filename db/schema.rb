@@ -9,7 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090713184338) do
+ActiveRecord::Schema.define(:version => 20090730054021) do
+
+  create_table "cache_update", :id => false, :force => true do |t|
+    t.datetime "last_updated", :null => false
+  end
 
   create_table "data", :id => false, :force => true do |t|
     t.integer "sid",                       :null => false
@@ -48,6 +52,15 @@ ActiveRecord::Schema.define(:version => 20090713184338) do
   end
 
   add_index "icmphdr", ["icmp_type"], :name => "icmp_type_idx"
+
+  create_table "ip_host_cache", :id => false, :force => true do |t|
+    t.integer "ip_addr",     :limit => 8,                :null => false
+    t.integer "src_ev_cnt",               :default => 0, :null => false
+    t.integer "dst_ev_cnt",               :default => 0, :null => false
+    t.integer "src_sig_cnt",              :default => 0, :null => false
+    t.integer "dst_sig_cnt",              :default => 0, :null => false
+    t.integer "act_idx",                  :default => 0, :null => false
+  end
 
   create_table "iphdr", :id => false, :force => true do |t|
     t.integer "sid",                   :null => false
