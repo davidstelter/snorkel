@@ -1,0 +1,1 @@
+page.replace_html("cache_update", :partial => "shared/cache_update")
