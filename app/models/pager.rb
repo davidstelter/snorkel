@@ -16,7 +16,7 @@ class Pager
    end
 
   def initialize(item_cnt = 1, page_str = '1', per_page = 25)
-    @item_cnt = item_cnt || 1
+    @item_cnt = item_cnt
     @page     = page_str.to_i
     @page = 1 if @page < 1
 

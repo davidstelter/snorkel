@@ -3,6 +3,10 @@
 # Please see the file COPYING in the root source directory for details
 
 module PagerControlHelper
+  def pager_counts(pager)
+    "#{pager.first_item} to #{pager.last_item} of #{pager.item_cnt}"
+  end
+
   def pager_control(pager, n = 3)
     params          = request.params.dup
     params[:page] ||= 1
