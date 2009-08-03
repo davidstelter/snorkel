@@ -36,8 +36,16 @@
                 <td><%= text_field_tag(:ip_dst, params[:ip_dst], :size => 15) %>/<%= text_field_tag(:ip_dst_mask, params[:ip_dst_mask], :size => 2) %></td>
             </tr> 
             <tr>
-                <th><%= label_tag(:proto, 'IP Proto') %></th>
+                <th><%= label_tag(:proto, 'L4 Proto') %></th>
                 <td><%= select_tag(:proto, "<option>ANY</option><option>TCP</option><option>UDP</option><option>ICMP</option>") %></td>
+            </tr>
+            <tr>
+                <th><%= label_tag(:l4_sport, 'L4 Src Range') %></th>
+                <td><%= text_field_tag(:l4_sport_lo, params[:l4_sport_lo], :size => 8) %>-<%= text_field_tag(:l4_sport_hi, params[:l4_sport_hi], :size => 8) %></td>
+            </tr>
+            <tr>
+                <th><%= label_tag(:l4_dport, 'L4 Dst Range') %></th>
+                <td><%= text_field_tag(:l4_dport_lo, params[:l4_dport_lo], :size => 8) %>-<%= text_field_tag(:l4_dport_hi, params[:l4_dport_hi], :size => 8) %></td>
             </tr>
             <tr>
                 <th><%= submit_tag("Filter") %></th>
