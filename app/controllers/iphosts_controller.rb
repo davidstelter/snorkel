@@ -3,38 +3,14 @@ class IphostsController < ApplicationController
 
   def summary
 
-    if params[:order]
-      order = params[:order]
-    elsif params[:order_desc]
-      order = params[:order_desc]
-      order += ' DESC'
-    else
-      params[:order_desc] = 'act_idx'
-      order = 'act_idx DESC'
-    end
+    filter = IpHostFilter.new
+    filter.read_params(params)
+    count = filter.filtered_count
 
-
-    cond_string  = []
-    cond_hash    = {}
-   
-    if (pset params[:net_addr]) && (pset params[:net_mask])
-      lo_ip = Iphdr.ip_string_to_int(params[:net_addr])
-      hi_ip = lo_ip + 2 ** params[:net_mask].to_i - 1
-      unless lo_ip == 0 and hi_ip == 0
-        cond_string << "ip_addr BETWEEN :min_ip AND :max_ip"
-        cond_hash[:min_ip] = lo_ip 
-        cond_hash[:max_ip] = hi_ip
-      end
-    end
-
-    conditions = cond_string.join(" AND ")
-    count = IpHost.count(:conditions => [ conditions, cond_hash])
     @summary_pager = Pager.new(count, params[:page])
-    @iphosts = IpHost.find(:all,
-                           :limit      => @summary_pager.per_page,
-                           :offset     => @summary_pager.offset, 
-                           :order      => order,
-                           :conditions => [ conditions, cond_hash])
+    filter.limit  = @summary_pager.per_page
+    filter.offset = @summary_pager.offset
+    @iphosts = filter.filtered_list
 
   end
 
