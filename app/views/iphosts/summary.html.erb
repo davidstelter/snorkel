@@ -7,34 +7,59 @@
                 <td><%= text_field_tag(:network, (params[:network] || '0.0.0.0'), :size => 15) %>/<%= text_field_tag(:netmask, (params[:netmask] || '0'), :size => 2) %></td>
             </tr>
             <tr>
-                <th><%= label_tag(:pri, 'Priority') %></th>
-                <td><%= text_field_tag(:pri, params[:pri]) %></td>
+                <th><%= label_tag(:pri, 'Min Sig Priority') %></th>
+                <td><%= text_field_tag(:min_sig_pri, params[:min_sig_pri]) %></td>
             </tr>
             <tr>
-                <th><%= label_tag(:min_idx, 'Min Activity Index') %></th>
-                <td><%= text_field_tag(:min_idx, params[:min_idx]) %></td>
+                <th><%= label_tag(:min_idx, 'Min Act Idx') %></th>
+                <td><%= text_field_tag(:min_act_idx, params[:min_act_idx]) %></td>
             </tr>
             <tr>
-                <th><%= label_tag(:max_idx, 'Max Activity Index') %></th>
-                <td><%= text_field_tag(:max_idx, params[:max_idx]) %></td>
+                <th><%= label_tag(:max_idx, 'Max Act Index') %></th>
+                <td><%= text_field_tag(:max_act_idx, params[:max_act_idx]) %></td>
+            </tr>
+            <tr>
+                <td colspan=2>
+                    <table>
+                        <tr>
+                            <th colspan=4>Signature Count</th>
+                        </tr>
+                        <tr>
+                            <th><%= label_tag(:min_src_sig, 'min src') %></th>
+                            <th><%= label_tag(:max_src_sig, 'max src') %></th>
+                            <th><%= label_tag(:min_dst_sig, 'min dst') %></th>
+                            <th><%= label_tag(:max_dst_sig, 'max dst') %></th>
+                        </tr>
+                        <tr>
+                            <td><%= text_field_tag(:min_src_sig, params[:min_src_sig], :size => 5) %></td>
+                            <td><%= text_field_tag(:max_src_sig, params[:max_src_sig], :size => 5) %></td>
+                            <td><%= text_field_tag(:min_dst_sig, params[:min_dst_sig], :size => 5) %></td>
+                            <td><%= text_field_tag(:max_dst_sig, params[:max_dst_sig], :size => 5) %></td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
 
             <tr>
-                <th><%= label_tag(:min_sig, 'Min Signature Count') %></th>
-                <td><%= text_field_tag(:min_sig, params[:min_sig]) %></td>
-            </tr>
-            <tr>
-                <th><%= label_tag(:max_sig, 'Max Signature Count') %></th>
-                <td><%= text_field_tag(:max_sig, params[:max_sig]) %></td>
-            </tr>
-
-            <tr>
-                <th><%= label_tag(:min_alert, 'Min Alert Count') %></th>
-                <td><%= text_field_tag(:min_alert, params[:min_alert]) %></td>
-            </tr>
-            <tr>
-                <th><%= label_tag(:max_alert, 'Max Alert Count') %></th>
-                <td><%= text_field_tag(:max_alert, params[:max_alert]) %></td>
+                <td colspan=2>
+                    <table>
+                        <tr>
+                            <th colspan=4>Alert Count</th>
+                        </tr>
+                        <tr>
+                            <th><%= label_tag(:min_src_alert, 'min src') %></th>
+                            <th><%= label_tag(:max_src_alert, 'max src') %></th>
+                            <th><%= label_tag(:min_dst_alert, 'min dst') %></th>
+                            <th><%= label_tag(:max_dst_alert, 'max dst') %></th>
+                        </tr>
+                        <tr>
+                            <td><%= text_field_tag(:min_src_alert, params[:min_src_alert], :size => 5) %></td>
+                            <td><%= text_field_tag(:max_src_alert, params[:max_src_alert], :size => 5) %></td>
+                            <td><%= text_field_tag(:min_dst_alert, params[:min_dst_alert], :size => 5) %></td>
+                            <td><%= text_field_tag(:max_dst_alert, params[:max_dst_alert], :size => 5) %></td>
+                        </tr>
+                    </table>
+                </td>
             </tr>
             <tr>
                 <th><%= submit_tag("Filter") %></th>

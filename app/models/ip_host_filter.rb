@@ -23,10 +23,16 @@ class IpHostFilter < ActiveRecord::Base
     self.min_sig_pri = params[:min_sig_pri]
     self.min_act_idx = params[:min_act_idx]
     self.max_act_idx = params[:max_act_idx]
+
     self.min_src_sig = params[:min_src_sig]
     self.max_src_sig = params[:max_src_sig]
+    self.min_dst_sig = params[:min_dst_sig]
+    self.max_dst_sig = params[:max_dst_sig]
+
     self.min_src_alert = params[:min_src_alert]
-    self.max_src_alert = params[:max_src_alert]
+    self.min_src_alert = params[:min_src_alert]
+    self.max_dst_alert = params[:max_dst_alert]
+    self.max_dst_alert = params[:max_dst_alert]
     
     self.build_conditions
   end
@@ -45,7 +51,7 @@ class IpHostFilter < ActiveRecord::Base
         cond_hash[:max_ip] = hi_ip
       end
     end
-
+    #act_idx
     if self.min_act_idx
       cond_arry << "act_idx >= :min_act_idx"
       cond_hash[:min_act_idx] = self.min_act_idx
@@ -55,10 +61,10 @@ class IpHostFilter < ActiveRecord::Base
       cond_arry << "act_idx <= :max_act_idx"
       cond_hash[:max_act_idx] = self.max_act_idx
     end
-    
+    #sig 
     if self.min_src_sig
-      cond_arry << "src_sig_cnt >= :min_sig_cnt"
-      cond_hash[:min_src_sig_cnt] = self.min_src_sig_cnt
+      cond_arry << "src_sig_cnt >= :min_src_sig"
+      cond_hash[:min_src_sig] = self.min_src_sig
     end
       
     if self.max_src_sig
@@ -66,6 +72,16 @@ class IpHostFilter < ActiveRecord::Base
       cond_hash[:max_src_sig] = self.max_src_sig
     end
 
+    if self.min_dst_sig
+      cond_arry << "dst_sig_cnt >= :min_dst_sig"
+      cond_hash[:min_dst_sig] = self.min_dst_sig
+    end
+      
+    if self.max_dst_sig
+      cond_arry << "dst_sig_cnt <= :max_dst_sig"
+      cond_hash[:max_dst_sig] = self.max_dst_sig
+    end
+    #alert
     if self.min_src_alert
       cond_arry << "src_ev_cnt >= :min_src_alert"
       cond_hash[:min_src_alert] = self.min_src_alert
@@ -75,6 +91,17 @@ class IpHostFilter < ActiveRecord::Base
       cond_arry << "src_ev_cnt <= :max_src_alert"
       cond_hash[:max_src_alert] = self.max_src_alert
     end
+
+    if self.min_dst_alert
+      cond_arry << "dst_ev_cnt >= :min_dst_alert"
+      cond_hash[:min_dst_alert] = self.min_dst_alert
+    end
+      
+    if self.max_dst_alert
+      cond_arry << "dst_ev_cnt <= :max_dst_alert"
+      cond_hash[:max_dst_alert] = self.max_dst_alert
+    end
+
     
     cond_str = cond_arry.join(" AND ")
 
