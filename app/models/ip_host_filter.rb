@@ -5,6 +5,7 @@ class IpHostFilter < ActiveRecord::Base
                             :min_sig_cnt,   :max_sig_cnt,
                             :min_alert_cnt, :max_alert_cnt
 
+# reads the params hash into instance variables
   def read_params(params = {})
     if params[:order]
       order = params[:order]
@@ -19,10 +20,18 @@ class IpHostFilter < ActiveRecord::Base
 
     self.network = Iphdr.ip_string_to_int(params[:network])
     self.netmask = params[:netmask]
-
+    self.min_sig_pri = params[:min_sig_pri]
+    self.min_act_idx = params[:min_act_idx]
+    self.max_act_idx = params[:max_act_idx]
+    self.min_src_sig = params[:min_src_sig]
+    self.max_src_sig = params[:max_src_sig]
+    self.min_src_alert = params[:min_src_alert]
+    self.max_src_alert = params[:max_src_alert]
+    
     self.build_conditions
   end
 
+# builds a condition string and hash from instance variables
   def build_conditions
     cond_arry  = []
     cond_hash    = {}
@@ -37,12 +46,42 @@ class IpHostFilter < ActiveRecord::Base
       end
     end
 
+    if self.min_act_idx
+      cond_arry << "act_idx >= :min_act_idx"
+      cond_hash[:min_act_idx] = self.min_act_idx
+    end
+      
+    if self.max_act_idx
+      cond_arry << "act_idx <= :max_act_idx"
+      cond_hash[:max_act_idx] = self.max_act_idx
+    end
+    
+    if self.min_src_sig
+      cond_arry << "src_sig_cnt >= :min_sig_cnt"
+      cond_hash[:min_src_sig_cnt] = self.min_src_sig_cnt
+    end
+      
+    if self.max_src_sig
+      cond_arry << "src_sig_cnt <= :max_src_sig"
+      cond_hash[:max_src_sig] = self.max_src_sig
+    end
+
+    if self.min_src_alert
+      cond_arry << "src_ev_cnt >= :min_src_alert"
+      cond_hash[:min_src_alert] = self.min_src_alert
+    end
+      
+    if self.max_src_alert
+      cond_arry << "src_ev_cnt <= :max_src_alert"
+      cond_hash[:max_src_alert] = self.max_src_alert
+    end
+    
     cond_str = cond_arry.join(" AND ")
 
     @conditions = [ cond_str, cond_hash ]
   end
 
-
+# returns the list of IpHosts which match the filter conditions
   def filtered_list(params = {})
     @iphosts = IpHost.find(:all,
                            :limit      => self.limit,
@@ -51,9 +90,8 @@ class IpHostFilter < ActiveRecord::Base
                            :conditions => @conditions)
   end
 
+#returns the number of IpHosts which match the filter conditions
   def filtered_count(params = {})
     IpHost.count(:conditions => @conditions)
   end
-
-
 end
