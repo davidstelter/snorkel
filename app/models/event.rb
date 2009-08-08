@@ -13,7 +13,6 @@ class Event < ActiveRecord::Base
              :class_name  => "Sensor",
              :foreign_key => "sid"
   has_one    :iphdr, 
-             :dependent   => :destroy,
              :class_name  => "Iphdr", 
              :foreign_key => [:sid, :cid]
 

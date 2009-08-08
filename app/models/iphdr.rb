@@ -12,23 +12,18 @@ class Iphdr < ActiveRecord::Base
              :class_name  => "Event",
              :foreign_key => [:sid, :cid]
   has_one    :data,
-             :dependent   => :destroy,
              :class_name  => "DataTab",
              :foreign_key => [:sid, :cid]
   has_one    :tcphdr,
-             :dependent   => :destroy,
              :class_name  => "Tcphdr",
              :foreign_key => [:sid, :cid]
   has_one    :udphdr,
-             :dependent   => :destroy,
              :class_name  => "Udphdr",
              :foreign_key => [:sid, :cid] 
   has_one    :icmphdr,
-             :dependent   => :destroy,
              :class_name  => "Icmphdr",
              :foreign_key => [:sid, :cid] 
   has_one    :opt,
-             :dependent   => :destroy,
              :class_name  => "Opt",
              :foreign_key => [:sid, :cid]
   
