@@ -3,6 +3,8 @@
 # Please see the file COPYING in the root source directory for details
 
 class IpHost < ActiveRecord::Base
+  include IpUtil
+
   set_table_name "ip_host_cache"
   set_primary_key :ip_addr
 
@@ -11,12 +13,12 @@ class IpHost < ActiveRecord::Base
   end
 
   def ip_string
-    Iphdr.ip_int_to_string(self.ip_addr)
+    ip_int_to_string(self.ip_addr)
   end
 
   def hostname
     if @hostname == nil
-      @hostname = IpHost.reverse_dns(self.ip_string)
+      @hostname = reverse_dns(self.ip_string)
     end
     @hostname
   end
@@ -142,8 +144,4 @@ class IpHost < ActiveRecord::Base
     @signatures_as_dst
   end
 
-  def IpHost.reverse_dns(ip_string)
-    s = Socket.getaddrinfo(ip_string, nil)
-    s[0][2]
-  end
 end

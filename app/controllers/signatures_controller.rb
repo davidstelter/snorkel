@@ -80,11 +80,19 @@ class SignaturesController < ApplicationController
     end
     #@order     = params[:order] || 'timestamp'
     @signature = Signature.find(params[:id])
+    session[:selected_sigs] = @signature.sig_id
     @pager     = Pager.new(@signature.alerts.count, params[:page])
     @alerts    = @signature.alerts.find(:all, 
                                         :limit  => @pager.per_page,
                                         :offset => @pager.offset,
                                         :order  => order)
+  end
+
+  def delete
+    if session[:selected_sigs]
+      sigs = Sig.find(session[:selected_sigs])
+      sigs.destroy
+    end
   end
 
 end

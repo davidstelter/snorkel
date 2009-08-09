@@ -3,6 +3,8 @@
 # Please see the file COPYING in the root source directory for details
 
 class Signature < ActiveRecord::Base
+  include IpUtil
+
   set_table_name "sig_with_event_count"
   self.primary_key = "sig_id"
   belongs_to :sig_class,
@@ -23,12 +25,12 @@ class Signature < ActiveRecord::Base
 
   named_scope :with_ip_src, lambda { |ip_str| {
               :joins => :alerts,
-              :conditions => ['alert.ip_src = ?', Iphdr.ip_string_to_int(ip_str)]
+              :conditions => ['alert.ip_src = ?', ip_string_to_int(ip_str)]
             } }
 
   named_scope :with_ip_dst, lambda { |ip_str| {
               :joins => :alerts,
-              :conditions => ['alert.ip_dst = ?', Iphdr.ip_string_to_int(ip_str)]
+              :conditions => ['alert.ip_dst = ?', ip_string_to_int(ip_str)]
             } }
 
   named_scope :with_participants, lambda { |*args|  
@@ -38,13 +40,13 @@ class Signature < ActiveRecord::Base
       result.merge!({:joins => :alerts, :select=> "distinct sig_with_event_count.*"})
 
       if params[:ip_src] && params[:ip_dst]
-        ip_src_lo = Iphdr.ip_string_to_int(params[:ip_src])
+        ip_src_lo = ip_string_to_int(params[:ip_src])
         ip_src_hi = ip_src_lo
         if params[:ip_src_mask]
           ip_src_hi = ip_src_lo + 2 ** params[:ip_src].to_i - 1
         end
 
-        ip_dst_lo = Iphdr.ip_string_to_int(params[:ip_dst]) 
+        ip_dst_lo = ip_string_to_int(params[:ip_dst]) 
         ip_dst_hi = ip_dst_lo
         if params[:ip_dst_mask]
           ip_dst_hi = ip_dst_lo + 2 ** params[:ip_dst].to_i - 1
@@ -54,14 +56,14 @@ class Signature < ActiveRecord::Base
                                 ip_src_lo, ip_src_hi, ip_dst_lo, ip_dst_hi ]        
       else
         if params[:ip_src] 
-          ip_lo = Iphdr.ip_string_to_int(params[:ip_src])
+          ip_lo = ip_string_to_int(params[:ip_src])
           ip_hi = ip_lo
           if params[:ip_src_mask]
             ip_hi = ip_lo + 2 ** params[:ip_src_mask].to_i - 1
           end 
           result[:conditions] = ['alert.ip_src between ? and ?', ip_lo, ip_hi]
         else
-          ip_lo = Iphdr.ip_string_to_int(params[:ip_dst]) 
+          ip_lo = ip_string_to_int(params[:ip_dst]) 
           ip_hi = ip_lo
           if params[:ip_dst_mask]
             ip_hi = ip_lo + 2 ** params[:ip_dst_mask].to_i - 1
@@ -72,10 +74,7 @@ class Signature < ActiveRecord::Base
     end
 
     return result
-  
   }
-
-
 
   def class_name
     if self.sig_class
@@ -114,7 +113,7 @@ class Signature < ActiveRecord::Base
       SELECT DISTINCT s.* 
       FROM signature s JOIN event e ON s.sig_id = e.signature 
       JOIN iphdr ip ON e.sid = ip.sid AND e.cid = ip.cid 
-      WHERE ip.ip_src = #{Iphdr.ip_string_to_int(ip_str)}
+      WHERE ip.ip_src = #{ip_string_to_int(ip_str)}
     })
   end
 
@@ -123,7 +122,7 @@ class Signature < ActiveRecord::Base
       SELECT DISTINCT s.* 
       FROM signature s JOIN event e ON s.sig_id = e.signature 
       JOIN iphdr ip ON e.sid = ip.sid AND e.cid = ip.cid 
-      WHERE ip.ip_dst = #{Iphdr.ip_string_to_int(ip_str)}
+      WHERE ip.ip_dst = #{ip_string_to_int(ip_str)}
     })
   end
 
