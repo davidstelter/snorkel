@@ -26,6 +26,11 @@ class AlertsController < ApplicationController
       cond_hash[:sig_name] = "#{params[:sig_name]}"
     end
 
+    if pset params[:sig_sid]
+      cond_string << "sig_sid = :sig_sid"
+      cond_hash[:sig_sid] = "#{params[:sig_sid]}"
+    end
+
     if pset params[:sensor]
       cond_string << "sid = :sensor"
       cond_hash[:sensor] = "#{params[:sensor]}"
@@ -42,7 +47,6 @@ class AlertsController < ApplicationController
     end
 
     if pset params[:before]
-
       cond_string << "timestamp < :time"
       cond_hash[:time] = "#{params[:before]}"
     end
