@@ -1,4 +1,6 @@
 class IpHostFilter < ActiveRecord::Base
+  include IpUtil
+
   attr_accessor :order, :limit, :offset
   validates_numericality_of :network, :netmask, :min_sig_pri, 
                             :min_act_idx,   :max_act_idx, 
@@ -18,8 +20,8 @@ class IpHostFilter < ActiveRecord::Base
     end
     self.order = order
 
-    self.network = Iphdr.ip_string_to_int(params[:network])
-    self.netmask = params[:netmask]
+    self.network = ip_string_to_int(params[:network])
+    self.netmask = params[:netmask].to_i
     self.min_sig_pri = params[:min_sig_pri]
     self.min_act_idx = params[:min_act_idx]
     self.max_act_idx = params[:max_act_idx]
@@ -44,7 +46,8 @@ class IpHostFilter < ActiveRecord::Base
 
     if self.network && self.netmask
       lo_ip = self.network 
-      hi_ip = lo_ip + (2 ** (32 - self.netmask.to_i)) - 1
+      #hi_ip = lo_ip + (2 ** self.netmask.to_i) - 1
+      hi_ip = high_ip(self.network, self.netmask)
       unless lo_ip == 0 and hi_ip == 0
         cond_arry << "ip_addr BETWEEN :min_ip AND :max_ip"
         cond_hash[:min_ip] = lo_ip 
