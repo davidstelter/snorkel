@@ -39,7 +39,7 @@
             <th><%= order_control 'class', :field => 'sig_class_id' %></th>
             <th><%= order_control 'pri', :field => 'sig_priority' %></th>
             <th><%= order_control 'name', :field => 'sig_name' %></th>
-            <th><%= order_control 'count', :field => 'event_count' %></th>
+            <th><%= order_control 'cnt', :field => 'event_count' %></th>
         </tr>
         <%= render(:partial => "signature_row", :collection =>  @signatures) %>
     </table>

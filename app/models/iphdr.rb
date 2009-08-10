@@ -29,16 +29,16 @@ class Iphdr < ActiveRecord::Base
              :class_name  => "Opt",
              :foreign_key => [:sid, :cid]
   
-  named_scope :with_ip_src, lambda { |ip_str| {:conditions => ["ip_src = ?", Iphdr.ip_string_to_int(ip_str)] } }
-  named_scope :with_ip_dst, lambda { |ip_str| {:conditions => ["ip_dst = ?", Iphdr.ip_string_to_int(ip_str)] } }
+  named_scope :with_ip_src, lambda { |ip_str| {:conditions => ["ip_src = ?", IpUtil.ip_string_to_int(ip_str)] } }
+  named_scope :with_ip_dst, lambda { |ip_str| {:conditions => ["ip_dst = ?", IpUtil.ip_string_to_int(ip_str)] } }
 
   def Iphdr.find_by_src_ip_string(ip_string)
-    ip_int = ip_string_to_int(ip_string)
+    ip_int = IpUtil.ip_string_to_int(ip_string)
     Iphdr.find(:all, :conditions => "ip_src = #{ip_int}")
   end
 
   def Iphdr.find_by_dst_ip_string(ip_string)
-    ip_int = ip_string_to_int(ip_string)
+    ip_int = IpUtil.ip_string_to_int(ip_string)
     Iphdr.find(:all, :conditions => "ip_dst = #{ip_int}")
   end 
 
@@ -51,11 +51,11 @@ class Iphdr < ActiveRecord::Base
   end 
 
   def ip_src_string
-    Iphdr.ip_int_to_string(self.ip_src)
+    IpUtil.ip_int_to_string(self.ip_src)
   end
 
   def ip_dst_string
-    Iphdr.ip_int_to_string(self.ip_dst)
+    IpUtil.ip_int_to_string(self.ip_dst)
   end
 
   def ip_src_dns

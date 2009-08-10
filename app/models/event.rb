@@ -18,8 +18,8 @@ class Event < ActiveRecord::Base
 
   named_scope :min_count_by_sig, lambda { |cnt| {:select => 'signature', :group => 'signature', :having => ["count(*) >= ?", cnt] } }
   named_scope :max_count_by_sig, lambda { |cnt| {:select => 'signature', :group => 'signature', :having => ["count(*) <= ?", cnt] } }
-  named_scope :with_ip_src, lambda { |ip_str| {:joins => :iphdr, :conditions => ["iphdr.ip_src = ?", Iphdr.ip_string_to_int(ip_str)] } }
-  named_scope :with_ip_dst, lambda { |ip_str| {:joins => :iphdr, :conditions => ["iphdr.ip_dst = ?", Iphdr.ip_string_to_int(ip_str)] } }
+  named_scope :with_ip_src, lambda { |ip_str| {:joins => :iphdr, :conditions => ["iphdr.ip_src = ?", IpUtil.ip_string_to_int(ip_str)] } }
+  named_scope :with_ip_dst, lambda { |ip_str| {:joins => :iphdr, :conditions => ["iphdr.ip_dst = ?", IpUtil.ip_string_to_int(ip_str)] } }
   named_scope :earliest, :limit => 1, :order => 'timestamp'
   named_scope :latest, :limit => 1, :order => 'timestamp DESC'
 

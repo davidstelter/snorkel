@@ -31,6 +31,8 @@
         </tr>
 
     </table>
+    <% form_remote_tag :url => { :controller => 'signatures', :action => 'delete', :id => @signature} do %>
+    <%= submit_tag "Delete", :confirm => 'This will delete all associated Alerts! Continue?' %><% end %>
     </br>
 </div>
 <div class="detail-right">

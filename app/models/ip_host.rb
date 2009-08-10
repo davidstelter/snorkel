@@ -9,11 +9,11 @@ class IpHost < ActiveRecord::Base
   set_primary_key :ip_addr
 
   def IpHost.find_by_ip_string(ip_str)
-    IpHost.find(Iphdr.ip_string_to_int(ip_str))
+    IpHost.find( IpUtil.ip_string_to_int(ip_str) )
   end
 
   def ip_string
-    ip_int_to_string(self.ip_addr)
+    IpUtil.ip_int_to_string(self.ip_addr)
   end
 
   def hostname

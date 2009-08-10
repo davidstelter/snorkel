@@ -1,4 +1,6 @@
 class IpHostFilter < ActiveRecord::Base
+  require 'record_filter'
+  include RecordFilter
   include IpUtil
 
   attr_accessor :order, :limit, :offset
@@ -9,6 +11,7 @@ class IpHostFilter < ActiveRecord::Base
 
 # reads the params hash into instance variables
   def read_params(params = {})
+#TODO: move ordering code to RecordFilter
     if params[:order]
       order = params[:order]
     elsif params[:order_desc]
@@ -20,20 +23,21 @@ class IpHostFilter < ActiveRecord::Base
     end
     self.order = order
 
-    self.network = ip_string_to_int(params[:network])
+    self.network = IpUtil.ip_string_to_int(params[:network])
     self.netmask = params[:netmask].to_i
-    self.min_sig_pri = params[:min_sig_pri]
-    self.min_act_idx = params[:min_act_idx]
-    self.max_act_idx = params[:max_act_idx]
+    
+    self.min_sig_pri   = params[:min_sig_pri]
+    self.min_act_idx   = params[:min_act_idx]
+    self.max_act_idx   = params[:max_act_idx]
 
-    self.min_src_sig = params[:min_src_sig]
-    self.max_src_sig = params[:max_src_sig]
-    self.min_dst_sig = params[:min_dst_sig]
-    self.max_dst_sig = params[:max_dst_sig]
+    self.min_src_sig   = params[:min_src_sig]
+    self.max_src_sig   = params[:max_src_sig]
+    self.min_dst_sig   = params[:min_dst_sig]
+    self.max_dst_sig   = params[:max_dst_sig]
 
     self.min_src_alert = params[:min_src_alert]
-    self.min_src_alert = params[:min_src_alert]
-    self.max_dst_alert = params[:max_dst_alert]
+    self.max_src_alert = params[:max_src_alert]
+    self.min_dst_alert = params[:min_dst_alert]
     self.max_dst_alert = params[:max_dst_alert]
     
     self.build_conditions
@@ -41,87 +45,29 @@ class IpHostFilter < ActiveRecord::Base
 
 # builds a condition string and hash from instance variables
   def build_conditions
-    cond_arry  = []
-    cond_hash    = {}
+    @filter_for = IpHost #TODO: make this smarter!
+    @cond_arry  = []
+    @cond_hash  = {}
 
-    if self.network && self.netmask
-      lo_ip = self.network 
-      #hi_ip = lo_ip + (2 ** self.netmask.to_i) - 1
-      hi_ip = high_ip(self.network, self.netmask)
-      unless lo_ip == 0 and hi_ip == 0
-        cond_arry << "ip_addr BETWEEN :min_ip AND :max_ip"
-        cond_hash[:min_ip] = lo_ip 
-        cond_hash[:max_ip] = hi_ip
-      end
-    end
-    #act_idx
-    if self.min_act_idx
-      cond_arry << "act_idx >= :min_act_idx"
-      cond_hash[:min_act_idx] = self.min_act_idx
-    end
-      
-    if self.max_act_idx
-      cond_arry << "act_idx <= :max_act_idx"
-      cond_hash[:max_act_idx] = self.max_act_idx
-    end
-    #sig 
-    if self.min_src_sig
-      cond_arry << "src_sig_cnt >= :min_src_sig"
-      cond_hash[:min_src_sig] = self.min_src_sig
-    end
-      
-    if self.max_src_sig
-      cond_arry << "src_sig_cnt <= :max_src_sig"
-      cond_hash[:max_src_sig] = self.max_src_sig
-    end
-
-    if self.min_dst_sig
-      cond_arry << "dst_sig_cnt >= :min_dst_sig"
-      cond_hash[:min_dst_sig] = self.min_dst_sig
-    end
-      
-    if self.max_dst_sig
-      cond_arry << "dst_sig_cnt <= :max_dst_sig"
-      cond_hash[:max_dst_sig] = self.max_dst_sig
-    end
-    #alert
-    if self.min_src_alert
-      cond_arry << "src_ev_cnt >= :min_src_alert"
-      cond_hash[:min_src_alert] = self.min_src_alert
-    end
-      
-    if self.max_src_alert
-      cond_arry << "src_ev_cnt <= :max_src_alert"
-      cond_hash[:max_src_alert] = self.max_src_alert
-    end
-
-    if self.min_dst_alert
-      cond_arry << "dst_ev_cnt >= :min_dst_alert"
-      cond_hash[:min_dst_alert] = self.min_dst_alert
-    end
-      
-    if self.max_dst_alert
-      cond_arry << "dst_ev_cnt <= :max_dst_alert"
-      cond_hash[:max_dst_alert] = self.max_dst_alert
-    end
-
+    self.cond_ip_and_mask(:ip_addr, self.network, self.netmask)
     
-    cond_str = cond_arry.join(" AND ")
+    #act_idx
+    self.cond_ge(:act_idx, :min_act_idx)
+    self.cond_le(:act_idx, :max_act_idx)
 
-    @conditions = [ cond_str, cond_hash ]
+    #sig 
+    self.cond_ge(:src_sig_cnt, :min_src_sig)
+    self.cond_le(:src_sig_cnt, :max_src_sig) 
+    self.cond_ge(:dst_sig_cnt, :min_dst_sig)
+    self.cond_le(:dst_sig_cnt, :max_dst_sig)  
+
+    #alert
+    self.cond_ge(:src_ev_cnt, :min_src_alert)
+    self.cond_le(:src_ev_cnt, :max_src_alert)
+    self.cond_ge(:dst_ev_cnt, :min_dst_alert)
+    self.cond_le(:dst_ev_cnt, :max_dst_alert)
+       
+    self._gen_sql
   end
 
-# returns the list of IpHosts which match the filter conditions
-  def filtered_list(params = {})
-    @iphosts = IpHost.find(:all,
-                           :limit      => self.limit,
-                           :offset     => self.offset, 
-                           :order      => self.order,
-                           :conditions => @conditions)
-  end
-
-#returns the number of IpHosts which match the filter conditions
-  def filtered_count(params = {})
-    IpHost.count(:conditions => @conditions)
-  end
 end

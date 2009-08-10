@@ -36,32 +36,32 @@ class Alert < ActiveRecord::Base
              :class_name  => "Opt",
              :foreign_key => [:sid, :cid]
 
-  named_scope :with_ip_src,  lambda { |ip_string| { :conditions => ["ip_src = ?", ip_string_to_int(ip_string) ] } } 
-  named_scope :with_ip_dst,  lambda { |ip_string| { :conditions => ["ip_dst = ?", ip_string_to_int(ip_string) ] } } 
+  named_scope :with_ip_src,  lambda { |ip_string| { :conditions => ["ip_src = ?", IpUtil.ip_string_to_int(ip_string) ] } } 
+  named_scope :with_ip_dst,  lambda { |ip_string| { :conditions => ["ip_dst = ?", IpUtil.ip_string_to_int(ip_string) ] } } 
 
   def Alert.find_by_src_ip_string(ip_string)
-    ip_int = ip_string_to_int(ip_string)
+    ip_int = IpUtil.ip_string_to_int(ip_string)
     Alert.find(:all, :conditions => "ip_src = #{ip_int}")
   end
 
   def Alert.find_by_dst_ip_string(ip_string)
-    ip_int = ip_string_to_int(ip_string)
+    ip_int = IpUtil.ip_string_to_int(ip_string)
     Alert.find(:all, :conditions => "ip_dst = #{ip_int}")
   end 
 
   def ip_src_dns
-    reverse_dns(self.ip_src_string)
+    IpUtil.reverse_dns(self.ip_src_string)
   end
 
   def ip_dst_dns
-    reverse_dns(self.ip_dst_string)
+    IpUtil.reverse_dns(self.ip_dst_string)
   end
 
   def ip_src_string
-    ip_int_to_string(self.ip_src)
+    IpUtil.ip_int_to_string(self.ip_src)
   end
 
   def ip_dst_string
-    ip_int_to_string(self.ip_dst)
+    IpUtil.ip_int_to_string(self.ip_dst)
   end
 end

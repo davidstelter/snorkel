@@ -2,12 +2,13 @@ module IpUtil
 
   # returns the highest IP address in a given network.
   # netaddr and netmask must be integers, netmask is CIDR
-  def high_ip(netaddr, netmask)
+  def IpUtil.high_ip(netaddr, netmask)
+    netmask = netmask.to_i
     netaddr + (2 ** netmask) -1
   end
 
   #returns numeric IP address given a dotted-octet IP string
-  def ip_string_to_int(ip_string)
+  def IpUtil.ip_string_to_int(ip_string)
     ip_int = 0
     ip_string =~ /(\d+)\.(\d+)\.(\d+)\.(\d+)/
     ip_int += $4.to_i
@@ -18,16 +19,17 @@ module IpUtil
 
 
   #returns a human-readable IP address in dotted-octet notation
-  def ip_int_to_string(ip_int)
+  def IpUtil.ip_int_to_string(ip_int)
     ip_string = ""
     ip_string <<        "#{( ip_int >> 24)}"
     ip_string << "." << "#{((ip_int >> 16) & 0xff)}"
     ip_string << "." << "#{((ip_int >>  8) & 0xff)}"
     ip_string << "." << "#{( ip_int        & 0xff)}"
   end
+
   
   #performs a reverse DNS lookup on specified IP
-  def IpHost.reverse_dns(ip_string)
+  def IpUtil.reverse_dns(ip_string)
     s = Socket.getaddrinfo(ip_string, nil)
     s[0][2]
   end

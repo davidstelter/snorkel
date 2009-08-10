@@ -3,7 +3,7 @@
 
     <td class="num-cell"><%=h (signature_row.class_name || "-")%></td>
     <td class="num-cell"><%=h (signature_row.sig_priority || "-")%></td>
-    <td><%=h truncate(signature_row.sig_name) %></td>
+    <td><%=h truncate(signature_row.sig_name, 50) %></td>
     <td class="num-cell"><%=h signature_row.events.count %></td> 
 </tr>
 
