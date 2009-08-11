@@ -18,7 +18,7 @@ class IpHost < ActiveRecord::Base
 
   def hostname
     if @hostname == nil
-      @hostname = reverse_dns(self.ip_string)
+      @hostname = IpUtil.reverse_dns(self.ip_string)
     end
     @hostname
   end
