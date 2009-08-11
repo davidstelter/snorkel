@@ -27,6 +27,7 @@ th, td {
 }
 
 td {
+    text-align: left;
     font-size: smaller;
     font-family: "mono";
     background: #ddd;
