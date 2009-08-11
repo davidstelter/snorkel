@@ -45,9 +45,14 @@ module RecordFilter
   end
 
   def cond_ip_and_mask(col, ip, mask)
-    if ip && mask
+    if ip 
       lo_ip = ip
-      hi_ip = IpUtil.high_ip(ip, mask)
+      if mask
+        hi_ip = IpUtil.high_ip(ip, mask)
+      else
+        hi_ip = lo_ip
+      end
+
       colstr = col.to_s
       unless lo_ip == 0 and hi_ip == 0
         @cond_arry << "#{colstr} BETWEEN :#{colstr}_min_ip AND :#{colstr}_max_ip"
