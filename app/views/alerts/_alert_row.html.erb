@@ -6,6 +6,7 @@
     <td><%=h truncate(alert_row.sig_name) %></td>
     <td class="timestamp"><%=h fmtdate alert_row.timestamp %></td>
     <td><%= link_to alert_row.ip_src_string, :controller => "iphosts", :action => "detail", :id => alert_row.ip_src_string %></td>
+    <td><%= alert_row.l4src || '-' %>
     <td><%= link_to alert_row.ip_dst_string, :controller => "iphosts", :action => "detail", :id => alert_row.ip_dst_string %></td>
+    <td><%= alert_row.l4dst || '-' %>
 </tr>
-

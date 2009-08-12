@@ -29,23 +29,27 @@
             </tr>
             <tr>
                 <th><%= label_tag(:ip_src, 'Source IP') %></th>
-                <td><%= text_field_tag(:ip_src, params[:ip_src], :size => 15) %>/<%= text_field_tag(:src_mask, params[:src_mask], :size => 2) %></td>
+                <td><%= text_field_tag(:ip_src, params[:ip_src], :size => 15) %>/<%= 
+                        text_field_tag(:src_mask, params[:src_mask], :size => 2) %></td>
             </tr>
             <tr>
                 <th><%= label_tag(:ip_dst, 'Dest IP') %></th>
-                <td><%= text_field_tag(:ip_dst, params[:ip_dst], :size => 15) %>/<%= text_field_tag(:dst_mask, params[:dst_mask], :size => 2) %></td>
+                <td><%= text_field_tag(:ip_dst, params[:ip_dst], :size => 15) %>/<%= 
+                        text_field_tag(:dst_mask, params[:dst_mask], :size => 2) %></td>
             </tr> 
             <tr>
                 <th><%= label_tag(:l4_proto, 'L4 Proto') %></th>
-                <td><%= select_tag(:l4_proto, "<option>ANY</option><option>TCP</option><option>UDP</option><option>ICMP</option>") %></td>
+                <td><%= proto_sel(:l4_proto, params[:l4_proto] ) %></td>
             </tr>
             <tr>
                 <th><%= label_tag(:l4_src, 'L4 Src Range') %></th>
-                <td><%= text_field_tag(:l4_src_lo, params[:l4_src_lo], :size => 8) %>-<%= text_field_tag(:l4_src_hi, params[:l4_src_hi], :size => 8) %></td>
+                <td><%= text_field_tag(:l4_src_lo, params[:l4_src_lo], :size => 8) %>-<%=
+                        text_field_tag(:l4_src_hi, params[:l4_src_hi], :size => 8) %></td>
             </tr>
             <tr>
                 <th><%= label_tag(:l4_dst, 'L4 Dst Range') %></th>
-                <td><%= text_field_tag(:l4_dst_lo, params[:l4_dst_lo], :size => 8) %>-<%= text_field_tag(:l4_dst_hi, params[:l4_dst_hi], :size => 8) %></td>
+                <td><%= text_field_tag(:l4_dst_lo, params[:l4_dst_lo], :size => 8) %>-<%= 
+                        text_field_tag(:l4_dst_hi, params[:l4_dst_hi], :size => 8) %></td>
             </tr>
             <tr>
                 <th><%= submit_tag("Filter") %></th>
@@ -65,7 +69,9 @@
             <th>sig name</th>
             <th><%= order_control 'time', :field => 'timestamp' %></th>
             <th>source</th>
+            <th>l4</th>
             <th>dest</th>
+            <th>l4</th>
         </tr>
         <%= render(:partial => "alert_row", :collection =>  @alerts) %>
     </table>
