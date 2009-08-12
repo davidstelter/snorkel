@@ -34,14 +34,7 @@ class AlertFilter < ActiveRecord::Base
     self.after     = params[:after]
     self.before    = params[:before]
 
-    self.l4_proto  = case
-                     when "#{params[:l4_proto]}" == "ANY" : -1
-                     when "#{params[:l4_proto]}" == "TCP" :  6
-                     when "#{params[:l4_proto]}" == "UDP" : 17
-                     when "#{params[:l4_proto]}" == "ICMP":  1
-                     else                                   -2
-                     end
-
+    self.l4_proto  = params[:l4_proto]
     self.l4_src_lo = params[:l4_src_lo]
     self.l4_src_hi = params[:l4_src_hi]
     self.l4_dst_lo = params[:l4_dst_lo]

@@ -39,6 +39,16 @@ class Alert < ActiveRecord::Base
   named_scope :with_ip_src,  lambda { |ip_string| { :conditions => ["ip_src = ?", IpUtil.ip_string_to_int(ip_string) ] } } 
   named_scope :with_ip_dst,  lambda { |ip_string| { :conditions => ["ip_dst = ?", IpUtil.ip_string_to_int(ip_string) ] } } 
 
+  def l4src
+    sport   = tcp_sport
+    sport ||= udp_sport
+  end
+
+  def l4dst
+    dport   = tcp_dport
+    dport ||= udp_dport
+  end
+
   def Alert.find_by_src_ip_string(ip_string)
     ip_int = IpUtil.ip_string_to_int(ip_string)
     Alert.find(:all, :conditions => "ip_src = #{ip_int}")
