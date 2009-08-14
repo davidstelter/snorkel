@@ -1,0 +1,7 @@
+Rails uses strong adherence to MVC, so the code is layed out mostly along those lines.
+app/controllers houses the controllers
+app/models is where the models live
+app/views holds the html.erb templates
+app/helpers has code that renders HTML for various controls
+lib has modules for utility code
+public holds files that will be directly accessible to clients, like images and stylesheets

@@ -1,0 +1,14 @@
+To install, you'll first need to set up the database. Create a Postgres DB named snort, and a user named snortusr.
+Then restore the DB from the included dump (current: snort.20090814) using the following:
+
+pg_restore -d snort snort.20090814
+
+Then you need to point Rails at your DB server. Edit the file config.database.yml and give it the right hostname/IP,
+and the password for the snortusr account you created.
+
+Once the above has been done, you should be ready to fire up the WEBrick server by executing the following in the
+root of the application:
+
+ruby script/server
+
+Point your browser to localhost:3000, and you're all set!
