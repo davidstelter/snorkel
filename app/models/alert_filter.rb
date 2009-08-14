@@ -54,7 +54,7 @@ class AlertFilter < ActiveRecord::Base
     self.cond_ip_and_mask(:ip_dst, self.ip_dst, self.dst_mask)
 
   #L4
-    self.cond_eq(:ip_proto, :l4_proto) unless self.l4_proto < 0
+    self.cond_eq(:ip_proto, :l4_proto) if self.l4_proto && self.l4_proto >= 0
 
     if self.l4_proto == 6 #TCP
       self.cond_le(:tcp_sport, :l4_src_hi)
