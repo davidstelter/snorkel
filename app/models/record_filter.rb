@@ -41,7 +41,7 @@ module RecordFilter
   end
 
   def cond_like(col, val)
-    if self.send(val)
+    if self.send(val) && self.send(val).length > 0
       @cond_arry << "#{col.to_s} ~ :#{val}"
       @cond_hash[val] = self.send(val)
     end
