@@ -3,28 +3,28 @@
     <table>
         <tr>
             <th>Signature</th>
-            <td><%=h @alert.sig_name %></td>
+            <td colspan=2><%=h @alert.sig_name %></td>
         </tr>
         <tr>
             <th>SID</th>
-            <td><%= link_to @alert.signature.sig_sid, 
+            <td colspan=2><%= link_to @alert.signature.sig_sid, 
                 :controller => "signatures", :action => "detail", :id => @alert.sig_id %></td>
         </tr>
         <tr>
             <th>Sensor</th>
-            <td>ID:<%=h @alert.sid %> Hostname:<%= h @alert.sensor.hostname %> iface:<%= h @alert.sensor.interface %></td>
+            <td colspan=2>ID:<%=h @alert.sid %> Hostname:<%= h @alert.sensor.hostname %> iface:<%= h @alert.sensor.interface %></td>
         </tr>
         <tr>
             <th>CID</th>
-            <td><%=h @alert.cid %></td>
+            <td colspan=2><%=h @alert.cid %></td>
         </tr>
         <tr>
             <th>Timestamp</th>
-            <td><%=h @alert.timestamp %></td>
+            <td colspan=2><%=h @alert.timestamp %></td>
         </tr>
         <tr>
             <th>Source</th>
-            <td><%= link_to @alert.ip_src_string, 
+            <td colspan=2><%= link_to @alert.ip_src_string, 
                 :controller => 'iphosts', :action => 'detail', :id => @alert.ip_src_string %> 
                 </br>
                 (<%=h @alert.ip_src_dns %>)
@@ -32,13 +32,23 @@
         </tr>
         <tr>
             <th>Destination</th>
-            <td><%= link_to @alert.ip_dst_string, 
+            <td colspan=2><%= link_to @alert.ip_dst_string, 
                 :controller => 'iphosts', :action => 'detail', :id => @alert.ip_dst_string %> 
                 </br>
                 (<%=h @alert.ip_dst_dns %>)
             </td>
         </tr>
-    </table>
+        <tr>
+          <th>From Src</th>
+          <td width='50%'>Next <%= link_to_obj @alert.next_from_src, :timestamp %></td>
+          <td width='50%'>Prev <%= link_to_obj @alert.prev_from_src, :timestamp %></td>
+        </tr>
+        <tr>
+          <th>To Dst</th>
+          <td width='50%'>Next <%= link_to_obj @alert.next_to_dst, :timestamp %></td>
+          <td width='50%'>Prev <%= link_to_obj @alert.prev_to_dst, :timestamp %></td>
+        </tr>
+      </table>
 </div>
 <div class="detail-right">
 <%= packet_headers @alert.iphdr %>

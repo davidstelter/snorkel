@@ -49,6 +49,22 @@ class Alert < ActiveRecord::Base
     dport ||= udp_dport
   end
 
+#returns the next (chrono) alert from the same source 
+  def next_from_src
+    Alert.first(:conditions => ['ip_src = ? AND timestamp > ?', self.ip_src, self.timestamp], :order => 'timestamp')
+  end
+#returns the prev (chrono) alert from the same source 
+  def prev_from_src
+    Alert.first(:conditions => ['ip_src = ? AND timestamp < ?', self.ip_src, self.timestamp], :order => 'timestamp')
+  end
+#returns the next (chrono) alert to the same dest 
+  def next_to_dst
+    Alert.first(:conditions => ['ip_dst = ? AND timestamp > ?', self.ip_dst, self.timestamp], :order => 'timestamp')
+  end
+#returns the prev (chrono) alert to the same dest 
+  def prev_to_dst
+    Alert.first(:conditions => ['ip_dst = ? AND timestamp < ?', self.ip_dst, self.timestamp], :order => 'timestamp')
+  end
   def Alert.find_by_src_ip_string(ip_string)
     ip_int = IpUtil.ip_string_to_int(ip_string)
     Alert.find(:all, :conditions => "ip_src = #{ip_int}")
