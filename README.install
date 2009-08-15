@@ -3,6 +3,8 @@ Then restore the DB from the included dump (current: snort.20090814) using the f
 
 pg_restore -d snort snort.20090814
 
+There will be lots of errors related to user stelterd and a few for user pgsql, these are safe to ignore.
+
 Then you need to point Rails at your DB server. Edit the file config.database.yml and give it the right hostname/IP,
 and the password for the snortusr account you created.
 
