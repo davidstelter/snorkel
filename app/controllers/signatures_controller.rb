@@ -6,7 +6,6 @@ class SignaturesController < ApplicationController
   include ControllerCommon
   
   def summary
-
     if params[:order]
       order = params[:order]
     elsif params[:order_desc]
