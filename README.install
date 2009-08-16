@@ -3,6 +3,10 @@ Then restore the DB from the included dump (snort_db_dump) using the following:
 
 pg_restore -d snort snort_db_dump
 
+If you have already created the DB and are updating to get new schema & data, use this to clean out old definitions:
+
+pg_restore -c -d snort snort_db_dump
+
 There will be lots of errors related to user stelterd and a few for user pgsql, these are safe to ignore.
 
 Then you need to point Rails at your DB server. Edit the file config.database.yml and give it the right hostname/IP,
