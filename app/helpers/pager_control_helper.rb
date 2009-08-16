@@ -3,8 +3,14 @@
 # Please see the file COPYING in the root source directory for details
 
 module PagerControlHelper
-  def pager_counts(pager)
-    "#{pager.first_item} to #{pager.last_item} of #{pager.item_cnt}"
+  def pager_counts(pager, opts={})
+    m = "#{pager.first_item} to #{pager.last_item} of "
+    if opts[:count_link]
+      m += link_to(pager.item_cnt, opts[:count_link])
+    else
+      m += "#{pager.item_cnt}"
+    end
+    m
   end
 
   def pager_control(pager, n = 3)

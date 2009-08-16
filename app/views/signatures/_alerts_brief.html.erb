@@ -1,5 +1,8 @@
     <table>
-        <caption>Alerts</caption>
+      <caption>Viewing <%= pager_counts @pager,
+        :count_link => {:controller => 'alerts',
+                        :action     => 'summary',
+                        :sig_sid    => @signature.sig_sid} %> Alerts</caption>
         <tr>
             <th>sid:cid</th>
             <th><%= order_control 'time', :field => 'timestamp' %></th>
