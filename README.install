@@ -1,7 +1,7 @@
 To install, you'll first need to set up the database. Create a Postgres DB named snort, and a user named snortusr.
-Then restore the DB from the included dump (current: snort.20090814) using the following:
+Then restore the DB from the included dump (snort_db_dump) using the following:
 
-pg_restore -d snort snort.20090814
+pg_restore -d snort snort_db_dump
 
 There will be lots of errors related to user stelterd and a few for user pgsql, these are safe to ignore.
 
