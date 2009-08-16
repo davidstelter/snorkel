@@ -1,6 +1,6 @@
 <tr>
-    <td><%= link_to "#{alert_row.sid}:#{alert_row.cid}", :controller => "alerts", :action => "detail", :id => alert_row.to_param %></td>
-    <td><%= link_to alert_row.signature.sig_sid, :controller => "signatures", :action => "detail", :id =>  alert_row.sig_id %></td>
+    <td><%= link_to sens_cid(alert_row), :controller => "alerts", :action => "detail", :id => alert_row.to_param %></td>
+    <td><%= link_to sid_gid(alert_row.signature), :controller => "signatures", :action => "detail", :id =>  alert_row.sig_id %></td>
     <td class="num-cell"><%=h (alert_row.sig_class_id || "-")%></td>
     <td class="num-cell"><%=h (alert_row.sig_priority || "-")%></td>
     <td><%=h truncate(alert_row.sig_name) %></td>

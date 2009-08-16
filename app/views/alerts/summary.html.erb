@@ -1,5 +1,5 @@
 <div class="summary-left">
-    <h2>Alert Filter</h2>
+    <h3>Alert Filter</h3>
     <% form_tag({:controller => 'alerts', :action => 'summary'}, :method => 'get') do %>
         <table>
             <tr>
@@ -9,6 +9,10 @@
             <tr>
                 <th><%= label_tag(:sig_sid, 'Signature ID') %></th>
                 <td><%= text_field_tag(:sig_sid, params[:sig_sid]) %></td>
+            </tr>
+            <tr>
+                <th><%= label_tag(:sig_gid, 'Group ID') %></th>
+                <td><%= text_field_tag(:sig_gid, params[:sig_gid]) %></td>
             </tr>
              <tr>
                 <th><%= label_tag(:sensor, 'Sensor ID') %></th>
@@ -59,11 +63,11 @@
 </div>
 
 <div class="summary-right">
-    <h2>Viewing <%= pager_counts @summary_pager %> Alerts</h2>
     <table id="alert-table">
+    <caption>Viewing <%= pager_counts @summary_pager %> Alerts</caption>
         <tr>
             <th>sens:cid</th>
-            <th>sig</th>
+            <th>sid:gid</th>
             <th>cls</th>
             <th>pri</th>
             <th>sig name</th>

@@ -30,6 +30,7 @@ class AlertFilter < ActiveRecord::Base
     self.dst_mask  = params[:dst_mask]
 
     self.sig_sid   = params[:sig_sid]
+    self.sig_gid   = params[:sig_gid]
     self.date      = params[:date]
     self.after     = params[:after]
     self.before    = params[:before]
@@ -49,6 +50,7 @@ class AlertFilter < ActiveRecord::Base
     @cond_hash  = {} 
 
     self.cond_eq(:sig_sid, :sig_sid)
+    self.cond_eq(:sig_gid, :sig_gid)
 
     self.cond_ip_and_mask(:ip_src, self.ip_src, self.src_mask)
     self.cond_ip_and_mask(:ip_dst, self.ip_dst, self.dst_mask)

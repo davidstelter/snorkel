@@ -2,9 +2,11 @@
       <caption>Viewing <%= pager_counts @pager,
         :count_link => {:controller => 'alerts',
                         :action     => 'summary',
-                        :sig_sid    => @signature.sig_sid} %> Alerts</caption>
+                        :sig_sid    => @signature.sig_sid,
+                        :sig_gid    => @signature.sig_gid
+                      } %> Alerts</caption>
         <tr>
-            <th>sid:cid</th>
+            <th>sens:cid</th>
             <th><%= order_control 'time', :field => 'timestamp' %></th>
             <th>source</th>
             <th>dest</th>

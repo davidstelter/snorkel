@@ -1,17 +1,21 @@
 <div class="detail-left">
-    <h2>Viewing Signature <%=h @signature.sig_sid %></h2>
+  <h3>Viewing Signature <%=h @signature.sig_sid %>:<%=h @signature.sig_gid %></h3>
     <table>
         <tr>
             <th>Name</th>
             <td><%=h @signature.sig_name %></td>
         </tr>
         <tr>
-            <th>SID</th>
-            <td><%=h @signature.sig_sid %></td>
+            <th>sid:gid</th>
+            <td><%=h @signature.sig_sid %>:<%=h @signature.sig_gid %></td>
         </tr>
         <tr>
             <th>Priority</th>
             <td><%=h @signature.sig_priority || '-' %></td>
+        </tr>
+        <tr>
+            <th>User Pri</th>
+            <td><%=h @signature.sig_user_pri || '-' %></td>
         </tr>
         <tr>
             <th>Class ID</th>

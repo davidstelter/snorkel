@@ -1,29 +1,29 @@
 <div class="detail-left">
-    <h2>Alert Detail for <%=h @alert.sid %>,<%=h @alert.cid %></h2>
+  <h3>Alert Detail for <%=h sens_cid(@alert) %></h3>
     <table>
         <tr>
-            <th>Signature</th>
+            <th>sig name</th>
             <td colspan=2><%=h @alert.sig_name %></td>
         </tr>
         <tr>
-            <th>SID</th>
-            <td colspan=2><%= link_to @alert.signature.sig_sid, 
+            <th>sid:gid</th>
+            <td colspan=2><%= link_to sid_gid(@alert.signature), 
                 :controller => "signatures", :action => "detail", :id => @alert.sig_id %></td>
         </tr>
         <tr>
-            <th>Sensor</th>
-            <td colspan=2>ID:<%=h @alert.sid %> Hostname:<%= h @alert.sensor.hostname %> iface:<%= h @alert.sensor.interface %></td>
+            <th>sensor</th>
+            <td colspan=2>id:<%=h @alert.sid %> hostname:<%= h @alert.sensor.hostname %> iface:<%= h @alert.sensor.interface %></td>
         </tr>
         <tr>
-            <th>CID</th>
+            <th>cid</th>
             <td colspan=2><%=h @alert.cid %></td>
         </tr>
         <tr>
-            <th>Timestamp</th>
+            <th>timestamp</th>
             <td colspan=2><%=h @alert.timestamp %></td>
         </tr>
         <tr>
-            <th>Source</th>
+            <th>source</th>
             <td colspan=2><%= link_to @alert.ip_src_string, 
                 :controller => 'iphosts', :action => 'detail', :id => @alert.ip_src_string %> 
                 </br>
@@ -31,7 +31,7 @@
             </td>
         </tr>
         <tr>
-            <th>Destination</th>
+            <th>destination</th>
             <td colspan=2><%= link_to @alert.ip_dst_string, 
                 :controller => 'iphosts', :action => 'detail', :id => @alert.ip_dst_string %> 
                 </br>
@@ -39,12 +39,12 @@
             </td>
         </tr>
         <tr>
-          <th>From Src</th>
+          <th>from src</th>
           <td width='50%'>Next <%= link_to_obj @alert.next_from_src, :timestamp %></td>
           <td width='50%'>Prev <%= link_to_obj @alert.prev_from_src, :timestamp %></td>
         </tr>
         <tr>
-          <th>To Dst</th>
+          <th>to dst</th>
           <td width='50%'>Next <%= link_to_obj @alert.next_to_dst, :timestamp %></td>
           <td width='50%'>Prev <%= link_to_obj @alert.prev_to_dst, :timestamp %></td>
         </tr>
