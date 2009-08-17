@@ -1,6 +1,9 @@
 .*.swp
+.vimproj
+-MiniBufExplorer-
 log/*.log
 tmp/**/*
 doc/api
 doc/app
 db/schema.rb
+config/database.yml
