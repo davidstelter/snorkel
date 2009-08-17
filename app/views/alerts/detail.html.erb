@@ -1,54 +1,54 @@
 <div class="detail-left">
   <h3>Alert Detail for <%=h sens_cid(@alert) %></h3>
-    <table>
-        <tr>
-            <th>sig name</th>
-            <td colspan=2><%=h @alert.sig_name %></td>
-        </tr>
-        <tr>
-            <th>sid:gid</th>
-            <td colspan=2><%= link_to sid_gid(@alert.signature), 
-                :controller => "signatures", :action => "detail", :id => @alert.sig_id %></td>
-        </tr>
-        <tr>
-            <th>sensor</th>
-            <td colspan=2>id:<%=h @alert.sid %> hostname:<%= h @alert.sensor.hostname %> iface:<%= h @alert.sensor.interface %></td>
-        </tr>
-        <tr>
-            <th>cid</th>
-            <td colspan=2><%=h @alert.cid %></td>
-        </tr>
-        <tr>
-            <th>timestamp</th>
-            <td colspan=2><%=h @alert.timestamp %></td>
-        </tr>
-        <tr>
-            <th>source</th>
-            <td colspan=2><%= link_to @alert.ip_src_string, 
-                :controller => 'iphosts', :action => 'detail', :id => @alert.ip_src_string %> 
-                </br>
-                (<%=h @alert.ip_src_dns %>)
-            </td>
-        </tr>
-        <tr>
-            <th>destination</th>
-            <td colspan=2><%= link_to @alert.ip_dst_string, 
-                :controller => 'iphosts', :action => 'detail', :id => @alert.ip_dst_string %> 
-                </br>
-                (<%=h @alert.ip_dst_dns %>)
-            </td>
-        </tr>
-        <tr>
-          <th>from src</th>
-          <td width='50%'>Next <%= link_to_obj @alert.next_from_src, :timestamp %></td>
-          <td width='50%'>Prev <%= link_to_obj @alert.prev_from_src, :timestamp %></td>
-        </tr>
-        <tr>
-          <th>to dst</th>
-          <td width='50%'>Next <%= link_to_obj @alert.next_to_dst, :timestamp %></td>
-          <td width='50%'>Prev <%= link_to_obj @alert.prev_to_dst, :timestamp %></td>
-        </tr>
-      </table>
+  <table>
+    <tr>
+      <th>sig name</th>
+      <td colspan=2><%=h @alert.sig_name %></td>
+    </tr>
+    <tr>
+      <th>sid:gid</th>
+      <td colspan=2><%= link_to sid_gid(@alert.signature), 
+        :controller => "signatures", :action => "detail", :id => @alert.sig_id %></td>
+    </tr>
+    <tr>
+      <th>sensor</th>
+      <td colspan=2>id:<%=h @alert.sid %> hostname:<%= h @alert.sensor.hostname %> iface:<%= h @alert.sensor.interface %></td>
+    </tr>
+    <tr>
+      <th>cid</th>
+      <td colspan=2><%=h @alert.cid %></td>
+    </tr>
+    <tr>
+      <th>timestamp</th>
+      <td colspan=2><%=h @alert.timestamp %></td>
+    </tr>
+    <tr>
+      <th>source</th>
+      <td colspan=2><%= link_to @alert.ip_src_string, 
+        :controller => 'iphosts', :action => 'detail', :id => @alert.ip_src_string %> 
+        </br>
+        (<%=h @alert.ip_src_dns %>)
+      </td>
+    </tr>
+    <tr>
+      <th>destination</th>
+      <td colspan=2><%= link_to @alert.ip_dst_string, 
+        :controller => 'iphosts', :action => 'detail', :id => @alert.ip_dst_string %> 
+        </br>
+        (<%=h @alert.ip_dst_dns %>)
+      </td>
+    </tr>
+    <tr>
+      <th>from src</th>
+      <td >Prev <%= link_to_obj @alert.prev_from_src, :timestamp %></td>
+      <td >Next <%= link_to_obj @alert.next_from_src, :timestamp %></td>
+    </tr>
+    <tr>
+      <th>to dst</th>
+      <td >Prev <%= link_to_obj @alert.prev_to_dst, :timestamp %></td>
+      <td >Next <%= link_to_obj @alert.next_to_dst, :timestamp %></td>
+    </tr>
+  </table>
 </div>
 <div class="detail-right">
 <%= packet_headers @alert.iphdr %>
