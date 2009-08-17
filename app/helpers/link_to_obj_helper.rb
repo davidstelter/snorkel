@@ -4,7 +4,7 @@
 module LinkToObjHelper
   def link_to_obj(obj, disp, params={})
     if obj
-      link_text
+      link_text = '-'
       if disp == :timestamp
         link_text = fmtdate(obj.send(disp))
       else
