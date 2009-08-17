@@ -5,7 +5,7 @@
 module DatetimeHelper
 
   def fmtdate(time)
-    time.localtime.strftime("%T %D")
+    time.localtime.strftime("%T.#{time.usec.to_s.slice(0,2)} %D")
   end
 end
     
