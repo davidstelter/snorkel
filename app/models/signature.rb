@@ -25,12 +25,12 @@ class Signature < ActiveRecord::Base
 
   named_scope :with_ip_src, lambda { |ip_str| {
               :joins => :alerts,
-              :conditions => ['alert.ip_src = ?', ip_string_to_int(ip_str)]
+              :conditions => ['alert.ip_src = ?', IpUtil.ip_string_to_int(ip_str)]
             } }
 
   named_scope :with_ip_dst, lambda { |ip_str| {
               :joins => :alerts,
-              :conditions => ['alert.ip_dst = ?', ip_string_to_int(ip_str)]
+              :conditions => ['alert.ip_dst = ?', IpUtil.ip_string_to_int(ip_str)]
             } }
 
   named_scope :with_participants, lambda { |*args|  
@@ -56,7 +56,7 @@ class Signature < ActiveRecord::Base
                                 ip_src_lo, ip_src_hi, ip_dst_lo, ip_dst_hi ]        
       else
         if params[:ip_src] 
-          ip_lo = ip_string_to_int(params[:ip_src])
+          ip_lo = IpUtil.ip_string_to_int(params[:ip_src])
           ip_hi = ip_lo
           if params[:ip_src_mask]
             ip_hi = ip_lo + 2 ** params[:ip_src_mask].to_i - 1
