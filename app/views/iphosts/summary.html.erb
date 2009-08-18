@@ -4,7 +4,8 @@
         <table>
             <tr>
                 <th><%= label_tag(:network, 'Network') %></th>
-                <td><%= text_field_tag(:network, (params[:network] || '0.0.0.0'), :size => 15) %>/<%= text_field_tag(:netmask, (params[:netmask] || '0'), :size => 2) %></td>
+                <td><%= text_field_tag(:network, (params[:network] || '0.0.0.0'), :size => 15) %>/<%= 
+                        text_field_tag(:netmask, (params[:netmask] || '0'), :size => 2) %></td>
             </tr>
             <tr>
                 <th><%= label_tag(:pri, 'Min Sig Priority') %></th>
@@ -72,8 +73,8 @@
     <table id="iphost-table">
         <tr>
             <th><%= order_control 'address', :field => 'ip_addr' %></th>
-            <th><%= order_control 'first', :field => 'first_seen' %></th>
-            <th><%= order_control 'last', :field => 'last_seen' %></th>
+            <th><%= order_control 'first', :field => 'LEAST(first_as_src, first_as_dst)' %></th>
+            <th><%= order_control 'last', :field => 'GREATEST(last_as_src, last_as_dst)' %></th>
             <th><%= order_control 'src evs', :field => 'src_ev_cnt' %></th>
             <th><%= order_control 'dst evs', :field => 'dst_ev_cnt' %></th>
             <th><%= order_control 'src sigs', :field => 'src_sig_cnt' %></th>

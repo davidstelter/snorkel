@@ -4,9 +4,11 @@
 
 class IpHost < ActiveRecord::Base
   include IpUtil
+  include Util
 
   set_table_name "ip_host_cache"
   set_primary_key :ip_addr
+
 
   def IpHost.find_by_ip_string(ip_str)
     IpHost.find( IpUtil.ip_string_to_int(ip_str) )
@@ -24,9 +26,13 @@ class IpHost < ActiveRecord::Base
   end
 
   def first_seen
-    ev = first_event
-    time = ev ? ev.timestamp : nil
+    min(self.first_as_src, self.first_as_dst)
   end
+  
+#  def first_seen
+#    ev = first_event
+#    time = ev ? ev.timestamp : nil
+#  end
 
   def first_event
     first_event = nil
@@ -48,9 +54,13 @@ class IpHost < ActiveRecord::Base
   end
 
   def last_seen
-    ev = last_event
-    time = ev ? ev.timestamp : nil
+    max(self.last_as_src, self.last_as_dst)
   end
+
+#  def last_seen
+#    ev = last_event
+#    time = ev ? ev.timestamp : nil
+#  end
 
   def last_event
     last_event = nil
