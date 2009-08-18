@@ -1,5 +1,5 @@
 <div class="summary-left">
-    <h2>IP Host Filter</h2>
+    <h3>IP Host Filter</h3>
     <% form_tag({:controller => 'iphosts', :action => 'summary'}, :method => 'get') do %>
         <table>
             <tr>
@@ -68,7 +68,7 @@
     <% end %>
 </div>
 <div class="summary-right">
-    <h2>Viewing <%= pager_counts @summary_pager %> IP Hosts</h2>
+    <h3>Viewing <%= pager_counts @summary_pager %> IP Hosts</h3>
     <table id="iphost-table">
         <tr>
             <th><%= order_control 'address', :field => 'ip_addr' %></th>
