@@ -40,13 +40,13 @@ class Signature < ActiveRecord::Base
       result.merge!({:joins => :alerts, :select=> "distinct sig_with_event_count.*"})
 
       if params[:ip_src] && params[:ip_dst]
-        ip_src_lo = ip_string_to_int(params[:ip_src])
+        ip_src_lo = IpUtil.ip_string_to_int(params[:ip_src])
         ip_src_hi = ip_src_lo
         if params[:ip_src_mask]
           ip_src_hi = ip_src_lo + 2 ** params[:ip_src].to_i - 1
         end
 
-        ip_dst_lo = ip_string_to_int(params[:ip_dst]) 
+        ip_dst_lo = IpUtil.ip_string_to_int(params[:ip_dst]) 
         ip_dst_hi = ip_dst_lo
         if params[:ip_dst_mask]
           ip_dst_hi = ip_dst_lo + 2 ** params[:ip_dst].to_i - 1
@@ -63,7 +63,7 @@ class Signature < ActiveRecord::Base
           end 
           result[:conditions] = ['alert.ip_src between ? and ?', ip_lo, ip_hi]
         else
-          ip_lo = ip_string_to_int(params[:ip_dst]) 
+          ip_lo = IpUtil.ip_string_to_int(params[:ip_dst]) 
           ip_hi = ip_lo
           if params[:ip_dst_mask]
             ip_hi = ip_lo + 2 ** params[:ip_dst_mask].to_i - 1
@@ -113,7 +113,7 @@ class Signature < ActiveRecord::Base
       SELECT DISTINCT s.* 
       FROM signature s JOIN event e ON s.sig_id = e.signature 
       JOIN iphdr ip ON e.sid = ip.sid AND e.cid = ip.cid 
-      WHERE ip.ip_src = #{ip_string_to_int(ip_str)}
+      WHERE ip.ip_src = #{IpUtil.ip_string_to_int(ip_str)}
     })
   end
 
@@ -122,7 +122,7 @@ class Signature < ActiveRecord::Base
       SELECT DISTINCT s.* 
       FROM signature s JOIN event e ON s.sig_id = e.signature 
       JOIN iphdr ip ON e.sid = ip.sid AND e.cid = ip.cid 
-      WHERE ip.ip_dst = #{ip_string_to_int(ip_str)}
+      WHERE ip.ip_dst = #{IpUtil.ip_string_to_int(ip_str)}
     })
   end
 
