@@ -3,7 +3,7 @@
     <td><%= link_to sid_gid(alert_row.signature), :controller => "signatures", :action => "detail", :id =>  alert_row.sig_id %></td>
     <td class="num-cell"><%=h (alert_row.sig_class_id || "-")%></td>
     <td class="num-cell"><%=h (alert_row.sig_priority || "-")%></td>
-    <td><%=h truncate(alert_row.sig_name) %></td>
+    <td><%=h truncate(alert_row.sig_name, 25) %></td>
     <td class="timestamp"><%=h fmtdate alert_row.timestamp %></td>
     <td><%= link_to alert_row.ip_src_string, :controller => "iphosts", :action => "detail", :id => alert_row.ip_src_string %></td>
     <td><%= alert_row.l4src || '-' %>
