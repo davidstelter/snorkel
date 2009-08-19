@@ -9,7 +9,28 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090730054021) do
+ActiveRecord::Schema.define(:version => 20090817081859) do
+
+  create_table "alert_filters", :force => true do |t|
+    t.string   "name"
+    t.integer  "sig_sid"
+    t.datetime "before"
+    t.datetime "after"
+    t.integer  "ip_src",     :limit => 8
+    t.integer  "src_mask"
+    t.integer  "ip_dst",     :limit => 8
+    t.integer  "dst_mask"
+    t.integer  "l4_proto"
+    t.integer  "l4_src_lo"
+    t.integer  "l4_src_hi"
+    t.integer  "l4_dst_lo"
+    t.integer  "l4_dst_hi"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "sig_name"
+    t.string   "date"
+    t.integer  "sig_gid"
+  end
 
   create_table "cache_update", :id => false, :force => true do |t|
     t.datetime "last_updated", :null => false
@@ -54,12 +75,37 @@ ActiveRecord::Schema.define(:version => 20090730054021) do
   add_index "icmphdr", ["icmp_type"], :name => "icmp_type_idx"
 
   create_table "ip_host_cache", :id => false, :force => true do |t|
-    t.integer "ip_addr",     :limit => 8,                :null => false
-    t.integer "src_ev_cnt",               :default => 0, :null => false
-    t.integer "dst_ev_cnt",               :default => 0, :null => false
-    t.integer "src_sig_cnt",              :default => 0, :null => false
-    t.integer "dst_sig_cnt",              :default => 0, :null => false
-    t.integer "act_idx",                  :default => 0, :null => false
+    t.integer  "ip_addr",      :limit => 8,                :null => false
+    t.integer  "src_ev_cnt",                :default => 0, :null => false
+    t.integer  "dst_ev_cnt",                :default => 0, :null => false
+    t.integer  "src_sig_cnt",               :default => 0, :null => false
+    t.integer  "dst_sig_cnt",               :default => 0, :null => false
+    t.integer  "act_idx",                   :default => 0, :null => false
+    t.datetime "first_as_dst"
+    t.datetime "last_as_dst"
+    t.datetime "first_as_src"
+    t.datetime "last_as_src"
+  end
+
+  create_table "ip_host_filters", :force => true do |t|
+    t.string   "name"
+    t.integer  "network",       :limit => 8
+    t.integer  "netmask"
+    t.integer  "min_sig_pri"
+    t.datetime "active_since"
+    t.datetime "active_before"
+    t.integer  "min_act_idx"
+    t.integer  "max_act_idx"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "min_src_sig"
+    t.integer  "max_src_sig"
+    t.integer  "min_dst_sig"
+    t.integer  "max_dst_sig"
+    t.integer  "min_src_alert"
+    t.integer  "max_src_alert"
+    t.integer  "min_dst_alert"
+    t.integer  "max_dst_alert"
   end
 
   create_table "iphdr", :id => false, :force => true do |t|
@@ -115,6 +161,16 @@ ActiveRecord::Schema.define(:version => 20090730054021) do
     t.integer "last_cid",  :limit => 8, :null => false
   end
 
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
   create_table "sig_class", :primary_key => "sig_class_id", :force => true do |t|
     t.text "sig_class_name", :null => false
   end
@@ -134,6 +190,7 @@ ActiveRecord::Schema.define(:version => 20090730054021) do
     t.integer "sig_rev",      :limit => 8
     t.integer "sig_sid",      :limit => 8
     t.integer "sig_gid",      :limit => 8
+    t.integer "sig_user_pri"
   end
 
   add_index "signature", ["sig_class_id"], :name => "sig_class_idx"
