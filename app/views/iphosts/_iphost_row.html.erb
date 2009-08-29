@@ -1,5 +1,5 @@
 <tr>
-    <td><%=link_to iphost_row.ip_string,
+    <td class="ip-cell"><%=link_to iphost_row.ip_string,
         :controller => 'iphosts',
         :action => 'detail',
         :id => iphost_row.ip_string %></td>
@@ -11,22 +11,22 @@
         :controller => 'alerts',
         :action => 'detail',
         :id => iphost_row.last_event %></td> 
-    <td><%=link_to_unless_zero iphost_row.src_ev_cnt,
+    <td class="num-cell"><%=link_to_unless_zero iphost_row.src_ev_cnt,
         :controller => 'alerts',
         :action => 'summary',
         :ip_src => iphost_row.ip_string %></td>
-    <td><%=link_to_unless_zero iphost_row.dst_ev_cnt,
+    <td class="num-cell"><%=link_to_unless_zero iphost_row.dst_ev_cnt,
         :controller => 'alerts',
         :action => 'summary',
         :ip_dst => iphost_row.ip_string %></td>
-    <td><%=link_to_unless_zero iphost_row.src_sig_cnt,
+    <td class="num-cell"><%=link_to_unless_zero iphost_row.src_sig_cnt,
         :controller => 'signatures',
         :action => 'summary',
         :ip_src => iphost_row.ip_string %></td>
-    <td><%=link_to_unless_zero iphost_row.dst_sig_cnt,
+    <td class="num-cell"><%=link_to_unless_zero iphost_row.dst_sig_cnt,
         :controller => 'signatures',
         :action => 'summary',
         :ip_dst => iphost_row.ip_string %></td>
-    <td><%=h iphost_row.act_idx %></td>
+    <td class="num-cell"><%=h iphost_row.act_idx %></td>
 </tr>
 
