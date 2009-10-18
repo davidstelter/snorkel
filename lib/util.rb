@@ -14,6 +14,7 @@ module Util
 
     min
   end
+  
   #Returns max argument, or nil if both are nil
   def max(a, b)
     if a && b
