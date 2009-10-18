@@ -17,7 +17,6 @@ module IpUtil
     ip_int += $1.to_i << 24
   end
 
-
   #returns a human-readable IP address in dotted-octet notation
   def IpUtil.ip_int_to_string(ip_int)
     ip_string = ""
@@ -26,7 +25,6 @@ module IpUtil
     ip_string << "." << "#{((ip_int >>  8) & 0xff)}"
     ip_string << "." << "#{( ip_int        & 0xff)}"
   end
-
   
   #performs a reverse DNS lookup on specified IP
   def IpUtil.reverse_dns(ip_string)
